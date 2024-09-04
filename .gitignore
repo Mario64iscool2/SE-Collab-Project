@@ -6,5 +6,8 @@
 .classpath
 .settings
 
+# Ignore binaries from dev machines
+/bin/
+
 # Ignore Gradle build output directory
 build
