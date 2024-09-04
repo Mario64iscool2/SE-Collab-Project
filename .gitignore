@@ -1,5 +1,10 @@
 # Ignore Gradle project-specific cache directory
 .gradle
 
+# Ignore Eclipse Project files from here out.
+.project
+.classpath
+.settings
+
 # Ignore Gradle build output directory
 build
