@@ -5,13 +5,13 @@
 # This workflow will build a Java project with Gradle and cache/restore any dependencies to improve the workflow execution time
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-gradle
 
-name: Java CI with Gradle
+name: Java CI with Gradle / Checkstyles
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "*" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "*" ]
 
 jobs:
   build:
@@ -35,3 +35,27 @@ jobs:
 
     - name: Build with Gradle Wrapper
       run: chmod a+rwx gradlew; ./gradlew build
+     
+     # Set up the environment
+    - name: Download Checkstyle 10.12.6
+      run: | 
+          mkdir -p /opt/lib
+          wget -q -O /opt/lib/checkstyle.jar https://github.com/checkstyle/checkstyle/releases/download/checkstyle-10.12.6/checkstyle-10.12.6-all.jar
+          cd "${GITHUB_WORKSPACE}"
+          
+      # Configures and runs checkstyle
+    - name: Run Checkstyle
+      run: |
+         exec java -jar /opt/lib/checkstyle.jar "." -c "checkstyle_checks.xml" -f xml > results.xml
+
+    - name: Print Results
+      run: echo "$(cat results.xml)"
+
+    - name: Check Results
+      run:  |
+        if grep -q error results.xml; then
+          echo "Checkstyle found an error - look at the logs under Print Results for details"
+          exit 1
+        else
+          echo "No errors found!"
+        fi
