@@ -12,6 +12,8 @@ on:
     branches: [ "*" ]
   pull_request:
     branches: [ "*" ]
+  workflow_dispatch:
+    
 
 jobs:
   build:
@@ -62,7 +64,7 @@ jobs:
 
     - name: Print Results
       run: |
-         exec java Checkstyles.class "results.xml"
+         exec java -jar checkstyle_formatter.jar "results.xml"
 
     - name: Check Results
       run:  |
