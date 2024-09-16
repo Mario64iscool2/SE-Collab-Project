@@ -42,6 +42,13 @@ jobs:
       contents: read
 
     steps:
+    - uses: actions/checkout@v4
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        
     - name: Download Checkstyle 10.12.6
       run: | 
           mkdir -p /opt/lib
@@ -51,7 +58,7 @@ jobs:
       # Configures and runs checkstyle
     - name: Run Checkstyle
       run: |
-         exec java -jar /opt/lib/checkstyle.jar "." -c "checkstyle_checks.xml" -f xml > results.xml
+         exec java -jar /opt/lib/checkstyle.jar "." -c "checkstyle_checks.xml" > results.rtf
 
     - name: Print Results
       run: echo "$(cat results.xml)"
