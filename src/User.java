@@ -1,7 +1,7 @@
 public interface User{
 	int inputSource();
 	
-	void delimitercharacters();
+	char delimitercharacters();
 	
 	String outputDestination();
 
