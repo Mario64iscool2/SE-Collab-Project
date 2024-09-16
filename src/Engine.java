@@ -7,9 +7,11 @@ public abstract class Engine implements IEngine, DataStorageSystem {
 	private char end;
 	@Override
 	public void readInput(){
+		setDelimiters(pair, end);
 	}
 	@Override
 	public void writeTo(){
+		System.out.println(readInput);
 	}
 	@Override
 	public void setDelimiters(char pair, char end) {
