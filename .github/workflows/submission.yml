@@ -61,11 +61,11 @@ jobs:
          exec java -jar /opt/lib/checkstyle.jar "." -c "checkstyle_checks.xml" > results.rtf
 
     - name: Print Results
-      run: echo "$(cat results.xml)"
+      run: echo "$(cat results.rtf)"
 
     - name: Check Results
       run:  |
-        if grep -q error results.xml; then
+        if grep -q error results.rtf; then
           echo "Checkstyle found an error - look at the logs under Print Results for details"
           exit 1
         else
