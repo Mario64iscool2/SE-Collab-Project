@@ -1,5 +1,5 @@
 
-public abstract class Engine implements IEngine {
+public abstract class Engine implements IEngine, DataStorageSystem {
 
 	// The pair delimiter
 	private char pair;
