@@ -35,8 +35,13 @@ jobs:
 
     - name: Build with Gradle Wrapper
       run: chmod a+rwx gradlew; ./gradlew build
-     
-     # Set up the environment
+  style:
+    name: Checkstyle
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
     - name: Download Checkstyle 10.12.6
       run: | 
           mkdir -p /opt/lib
