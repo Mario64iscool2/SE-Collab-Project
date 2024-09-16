@@ -5,7 +5,12 @@ public abstract class Engine implements IEngine, DataStorageSystem {
 	private char pair;
 	// The result delimiter
 	private char end;
-	
+	@Override
+	public void readInput(){
+	}
+	@Override
+	public void writeTo(){
+	}
 	@Override
 	public void setDelimiters(char pair, char end) {
 		// TODO Auto-generated method stub
