@@ -11,7 +11,6 @@ public abstract class Engine implements IEngine, DataStorageSystem {
 	}
 	@Override
 	public void writeTo(){
-		this.readInput
 		System.out.println(readInput());
 	}
 	@Override
