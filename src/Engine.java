@@ -1,5 +1,5 @@
-
-public abstract class Engine implements IEngine, DataStorageSystem {
+import java.util.Scanner;
+public abstract class Engine implements IEngine, DataStorageSystem, User {
 
 	// The pair delimiter
 	private char pair;
@@ -25,7 +25,18 @@ public abstract class Engine implements IEngine, DataStorageSystem {
 		// TODO Auto-generated method stub
 		return false;
 	}
-	
+	@Override
+	public int inputSource(){
+	}
+	@Override
+	public char delimitercharacters(){
+		Scanner sc=new Scanner(System.in);
+		this.pair=sc.nextChar();
+		this.end=sc.nextChar();
+	}
+	@Override
+	public String outputDestination(){
+	}
 	public abstract String outputNext();
 
 }
