@@ -11,7 +11,8 @@ public abstract class Engine implements IEngine, DataStorageSystem {
 	}
 	@Override
 	public void writeTo(){
-		System.out.println(readInput);
+		this.readInput
+		System.out.println(readInput());
 	}
 	@Override
 	public void setDelimiters(char pair, char end) {
