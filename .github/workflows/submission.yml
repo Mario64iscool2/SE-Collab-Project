@@ -5,7 +5,7 @@
 # This workflow will build a Java project with Gradle and cache/restore any dependencies to improve the workflow execution time
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-gradle
 
-name: Java CI with Gradle / Checkstyles
+name: Java CI with Gradle / Checkstyles / ReviewDog
 
 on:
   push:
@@ -40,8 +40,12 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+      checks: write
+      pull-requests: write
 
     steps:
+    - uses: reviewdog/action-setup@v1
+    
     - name: Download Checkstyle 10.12.6
       run: | 
           mkdir -p /opt/lib
@@ -51,11 +55,18 @@ jobs:
       # Configures and runs checkstyle
     - name: Run Checkstyle
       run: |
-         exec java -jar /opt/lib/checkstyle.jar "." -c "checkstyle_checks.xml" -f xml > results.xml
+         exec java -jar /opt/lib/checkstyle.jar "." -c "config/checkstyle/checkstyle.xml" -f xml > "results.xml"
+    - name: Run ReviewDog
+      continue-on-error: true
+      env:
+        REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+         reviewdog -f=checkstyle -name="github-actions" -reporter=github-check < "results.xml
 
     - name: Print Results
-      run: echo "$(cat results.xml)"
-
+      run: |
+        exec java -jar checkstyle_formatter.jar "results.xml"
+        
     - name: Check Results
       run:  |
         if grep -q -w -e "warning" -e "error" results.xml; then
