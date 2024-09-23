@@ -65,11 +65,12 @@ jobs:
       env:
         REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-         exec java -jar /opt/lib/checkstyle.jar "." -c "config/checkstyle/checkstyle.xml" -f xml | reviewdog -f=checkstyle -name="github-actions" -fail-level=any -reporter=github-check -tee
+         exec java -jar /opt/lib/checkstyle.jar "." -c "config/checkstyle/checkstyle.xml" -f xml > "results.xml"
+         reviewdog -f=checkstyle -name="github-actions" -fail-level=any -reporter=github-check -tee < "results.xml"
 
     - name: Print Results
       run: |
-        exec java -jar /opt/lib/checkstyle.jar "." -c "config/checkstyle/checkstyle.xml" -f xml | reviewdog -f=checkstyle
+        reviewdog -f=checkstyle < "results.xml"
         
     - name: Check Results
       run:  |
