@@ -14,5 +14,5 @@ public interface ICompute {
 	long compute(int i);
 	
 }
-abstract class aPIimplementation implements ICompute{
+abstract class icompute implements ICompute{
 }
