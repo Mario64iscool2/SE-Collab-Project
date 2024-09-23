@@ -54,18 +54,14 @@ jobs:
           
       # Configures and runs checkstyle
     - name: Run Checkstyle
-      run: |
-         exec java -jar /opt/lib/checkstyle.jar "." -f xml > "results.xml"
-    - name: Run ReviewDog
-      continue-on-error: true
       env:
         REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-         reviewdog -f=checkstyle -name="github-actions" -reporter=github-check < "results.xml
-
+         exec java -jar /opt/lib/checkstyle.jar "." -f xml | reviewdog -f=checkstyle -name="github-actions" -reporter=github-check > "results"
+         
     - name: Print Results
       run: |
-        exec java -jar checkstyle_formatter.jar "results.xml"
+        echo results
         
     - name: Check Results
       run:  |
