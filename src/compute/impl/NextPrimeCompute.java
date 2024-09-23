@@ -1,5 +1,4 @@
 package compute.impl;
-
 import compute.ICompute;
 
 public class NextPrimeCompute implements ICompute {
