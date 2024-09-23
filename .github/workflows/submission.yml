@@ -51,3 +51,4 @@ jobs:
           reporter: github-pr-review
           checkstyle_config: "config/checkstyle/checkstyle.xml"
           level: warning
+          fail_on_error: true
