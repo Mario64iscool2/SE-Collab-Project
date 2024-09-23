@@ -1,11 +1,13 @@
 package checkstyles;
 
 import java.io.File;
-import javax.xml.parsers.DocumentBuilderFactory;
+
 import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
 import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
 import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 public class Checkstyles {
 
@@ -42,13 +44,14 @@ public class Checkstyles {
 								msg = ((Element) detailList.item(j)).getAttribute("message");
 								src = ((Element) detailList.item(j)).getAttribute("source").split(
 										"\\.")[((Element) detailList.item(j)).getAttribute("source").split("\\.").length
-												- 1];
+										       - 1];
 								System.out.println(String.format("| %s | %s | [%d,%d] %s <%s> |", sev, curFile, line,
 										col, msg, src));
 							}
 						}
 					} else {
-						System.out.println("|    | " + ((Element) list.item(i)).getAttribute("name").split("/./")[1] + " | No errors found.");
+						System.out.println("|    | " + ((Element) list.item(i)).getAttribute("name").split("/./")[1]
+								+ " | No errors found.");
 					}
 				}
 

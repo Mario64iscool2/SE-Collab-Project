@@ -66,7 +66,7 @@ jobs:
         REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
          exec java -jar /opt/lib/checkstyle.jar "." -c "config/checkstyle/checkstyle.xml" -f xml > "results.xml"
-         reviewdog -f=checkstyle -name="github-actions" -fail-level=any -reporter=github-pr-check -tee < "results.xml"
+         reviewdog -f=checkstyle -name="github-actions" -fail-level=any -reporter=github-pr-review -tee < "results.xml"
 
     - name: Print Results
       run: |
@@ -85,5 +85,7 @@ jobs:
         REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       uses: nikitasavinov/checkstyle-action@0.6.0
       with:
-        level: error
-        fail_on_error: true
+        reporter: github-pr-check
+        filter_mode: added
+        checkstyle_config: "config/checkstyle/checkstyle.xml"
+        checkstyle_version: 10.18.1
