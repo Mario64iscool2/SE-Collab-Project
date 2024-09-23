@@ -13,10 +13,10 @@ public class Checkstyles {
 		if (args != null) {
 			try {
 				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-				DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+				DocumentBuilder docBuilder = dbFactory.newDocumentBuilder();
 
 				File inputFile = new File(args[0]);
-				Document doc = dBuilder.parse(inputFile);
+				Document doc = docBuilder.parse(inputFile);
 
 				NodeList list = doc.getElementsByTagName("file");
 				String curFile;
