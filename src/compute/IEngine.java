@@ -29,5 +29,5 @@ interface IEngine {
 		return "No Computation Available";
 	}
 }
-class aPIimplementation implements IEngine{
+abstract class aPIimplementation implements IEngine{
 }
