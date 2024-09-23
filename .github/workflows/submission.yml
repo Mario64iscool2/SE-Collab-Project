@@ -89,6 +89,6 @@ jobs:
       uses: nikitasavinov/checkstyle-action@0.6.0
       with:
         reporter: github-pr-check
-        filter_mode: added
+        filter_mode: nofilter
         checkstyle_config: "config/checkstyle/checkstyle.xml"
         checkstyle_version: 10.18.1
