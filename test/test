@@ -1,12 +1,11 @@
 import static org.junit.jupiter.api.Assertions.fail;
 import org.junit.jupiter.api.Test;
-public class ExampleTest {
+public class test {
   @Test
-  public void testAddition() {
-    int a = 2;
-    int b = 3;
-    if (a + b != 5) {
-      fail();
+  public void testIEngine(){
   }
+  public void testICompute(){
+  }
+  public void testDSS(){
   }
 }
