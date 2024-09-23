@@ -44,11 +44,30 @@ jobs:
       pull-requests: write
 
     steps:
-      - uses: actions/checkout@v4
-      - uses: dbelyaev/action-checkstyle@master
-        with:
-          github_token: ${{ secrets.github_token }}
-          reporter: github-check
-          checkstyle_config: "config/checkstyle/checkstyle.xml"
-          level: warning
-          fail_level: any
+    - uses: reviewdog/action-setup@v1
+    
+    - name: Download Checkstyle 10.12.6
+      run: | 
+          mkdir -p /opt/lib
+          wget -q -O /opt/lib/checkstyle.jar https://github.com/checkstyle/checkstyle/releases/download/checkstyle-10.12.6/checkstyle-10.12.6-all.jar
+          cd "${GITHUB_WORKSPACE}"
+          
+      # Configures and runs checkstyle
+    - name: Run Checkstyle
+      env:
+        REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+         exec java -jar /opt/lib/checkstyle.jar "." -c "config/checkstyle/checkstyle.xml" -f xml | reviewdog -f=checkstyle -name="github-actions" -reporter=github-check
+
+    - name: Print Results
+      run: |
+        exec java -jar checkstyle_formatter.jar "results.xml"
+        
+    - name: Check Results
+      run:  |
+        if grep -q -w error results.xml; then
+          echo "Checkstyle found an error - look at the logs under Print Results for details"
+          exit 1
+        else
+          echo "No errors found!"
+        fi
