@@ -44,21 +44,11 @@ jobs:
       pull-requests: write
 
     steps:
-     - name: Download Checkstyle 10.12.6
-       run: | 
-          mkdir -p /opt/lib
-          wget -q -O /opt/lib/checkstyle.jar https://github.com/checkstyle/checkstyle/releases/download/checkstyle-10.12.6/checkstyle-10.12.6-all.jar
-          cd "${GITHUB_WORKSPACE}"
-     - name: Run Checkstyle / ReviewDog
-       env:
-          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-       run: |
-         exec java -jar /opt/lib/checkstyle.jar "." -c "config/checkstyle/checkstyle.xml" -f xml | reviewdog -tee -fail-level=warning -f=checkstyle -name="ReviewDog" -reporter=github-pr-review
-    
-     - uses: actions/checkout@v4
-     - uses: dbelyaev/action-checkstyle@master
-       with:
+      - uses: actions/checkout@v4
+      - uses: dbelyaev/action-checkstyle@master
+        with:
           github_token: ${{ secrets.github_token }}
           reporter: github-pr-review
           checkstyle_config: "config/checkstyle/checkstyle.xml"
-          level: error
+          level: warning
+          fail_on_error: true
