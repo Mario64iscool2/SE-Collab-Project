@@ -13,11 +13,11 @@ import data.OutputSource;
 public abstract class Engine implements IEngine {
 
 	// The pair delimiter
-	private char pair;
+	protected char pair;
 	// The result delimiter
-	private char end;
+	protected char end;
 	
-	private ICompute computation;
+	protected ICompute computation;
 
 	@Override
 	public void setDelimiters(char pair, char end) {
