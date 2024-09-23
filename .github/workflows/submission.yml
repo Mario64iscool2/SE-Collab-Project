@@ -51,4 +51,4 @@ jobs:
           reporter: github-check
           checkstyle_config: "config/checkstyle/checkstyle.xml"
           level: warning
-          fail_on_error: true
+          fail_level: any
