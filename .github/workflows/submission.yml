@@ -58,11 +58,7 @@ jobs:
       env:
         REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-         exec java -jar /opt/lib/checkstyle.jar "." -c "config/checkstyle/checkstyle.xml" -f xml | reviewdog -f=checkstyle -name="github-actions" -reporter=github-check
-         
-    - name: Print Results
-      run: |
-        echo results
+         exec java -jar /opt/lib/checkstyle.jar "." -c "config/checkstyle/checkstyle.xml" -f xml | reviewdog -tee -f=checkstyle -name="ReviewDog" -reporter=github-check
         
     - name: Check Results
       run:  |
