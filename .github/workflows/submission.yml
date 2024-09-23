@@ -55,7 +55,7 @@ jobs:
       # Configures and runs checkstyle
     - name: Run Checkstyle
       run: |
-         exec java -jar /opt/lib/checkstyle.jar "." -c "config/checkstyle/checkstyle.xml" -f xml > "results.xml"
+         exec java -jar /opt/lib/checkstyle.jar "." -c "config/checkstyle/checkstyle.xml" -f xml -o "results.xml"
     - name: Run ReviewDog
       continue-on-error: true
       env:
