@@ -45,6 +45,7 @@ jobs:
 
     steps:
     - uses: reviewdog/action-setup@v1
+    - uses: actions/checkout@v4
     
     - name: Download Checkstyle 10.12.6
       run: | 
@@ -71,3 +72,8 @@ jobs:
         else
           echo "No errors found!"
         fi
+    - name: Run java checkstyle
+      uses: nikitasavinov/checkstyle-action@0.6.0
+      with:
+        level: error
+        fail_on_error: true
