@@ -29,5 +29,3 @@ interface IEngine {
 		return "No Computation Available";
 	}
 }
-abstract class iengine implements IEngine{
-}

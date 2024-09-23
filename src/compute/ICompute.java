@@ -14,5 +14,3 @@ public interface ICompute {
 	long compute(int i);
 	
 }
-abstract class icompute implements ICompute{
-}
