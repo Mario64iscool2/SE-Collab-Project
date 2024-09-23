@@ -44,13 +44,17 @@ jobs:
       pull-requests: write
 
     steps:
-    - uses: reviewdog/action-setup@v1
     - uses: actions/checkout@v4
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
     
-    - name: Download Checkstyle 10.12.6
+    - name: Download Checkstyle
       run: | 
           mkdir -p /opt/lib
-          wget -q -O /opt/lib/checkstyle.jar https://github.com/checkstyle/checkstyle/releases/download/checkstyle-10.12.6/checkstyle-10.12.6-all.jar
+          wget -q -O /opt/lib/checkstyle.jar https://github.com/checkstyle/checkstyle/releases/download/checkstyle-10.18.1/checkstyle-10.18.1-all.jar
           cd "${GITHUB_WORKSPACE}"
           
       # Configures and runs checkstyle
