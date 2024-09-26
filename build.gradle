@@ -24,7 +24,7 @@ checkstyle {
 }
 
 dependencies {
-	checkstyle "com.puppycrawl.tools:checkstyle:${checkstyle.toolVersion}"
+	checkstyle("com.puppycrawl.tools:checkstyle:${checkstyle.toolVersion}")
     testImplementation('junit:junit:4.12')
     testImplementation('org.junit.jupiter:junit-jupiter:5.8.2')
 	testImplementation('org.mockito:mockito-core:5.10.0')
