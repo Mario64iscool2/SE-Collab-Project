@@ -12,5 +12,7 @@ public interface ICompute {
 	 * @return the resultant long
 	 */
 	long compute(int i);
+
+	boolean isxPrime(int x);
 	
 }
