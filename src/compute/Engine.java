@@ -31,17 +31,5 @@ public abstract class Engine implements IEngine {
 		
 		return "".toString();
 	}
-	@Override
-	boolean isxPrime(int x){
-		if (x=<1){
-			return false;
-		}
-		for (int i = 2; i < n; i++) {
-			if (n % i == 0) {
-				return false;
-			}
-		}
-		return true;
-	}
 
 }
