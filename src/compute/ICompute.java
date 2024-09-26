@@ -14,5 +14,6 @@ public interface ICompute {
 	long compute(int i);
 
 	boolean isxPrime(int x);
+	int firstgreaterprimeNum(int x, int y);
 	
 }
