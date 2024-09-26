@@ -23,9 +23,11 @@ interface IEngine {
 	 */
 	public abstract String compute(InputSource<?> src, OutputSource dst);
 	
+	/**
+	 * If the input is a single integer, use this.
+	 * @param i The integer input to be operated on
+	 * @param dst The outputsource for the operation
+	 * @return The result as a string for this single computation
+	 */
 	public abstract String compute(int i, OutputSource dst);
-
-	public default String compute() {
-		return "No Computation Available";
-	}
 }
