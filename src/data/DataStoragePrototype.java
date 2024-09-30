@@ -2,7 +2,7 @@ package data;
 
 import utils.Status;
 
-public class DataStorage {
+public class DataStoragePrototype {
 	public void prototype(DataStorageSystem dataStore) {
 		InputSource inputSource = null;
 		OutputSource outputSource = null;
