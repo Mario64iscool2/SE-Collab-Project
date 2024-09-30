@@ -1,4 +1,4 @@
-import data.*;
+package datatests;
 
 import org.mockito.Mockito;
 
@@ -6,6 +6,9 @@ import org.mockito.Mockito;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import data.DataStorageSystem;
+import data.InputSource;
+import data.OutputSource;
 import data.impl.DataStorageSystemImpl;
 import utils.Status;
 
