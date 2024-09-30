@@ -1,12 +1,17 @@
 package data;
-public interface DataStorageSystem{
 
+import utils.Status;
+
+/**
+ * Handles both input and output from the Engine.
+ */
+public interface DataStorageSystem {
+
+	Iterable<Integer> read(InputSource<?> inputSource);
 	
-	Iterable<Integer> read(InputSource inputSource);
+	Status writeTo(OutputSource outputSource);
 	
-	void writeTo(OutputSource outputSource);
-	
-	WriteResult appendSingleResult(OutputSource outputSource, String result);
+	Status appendSingleResult(OutputSource outputSource, String result);
 
 
 }

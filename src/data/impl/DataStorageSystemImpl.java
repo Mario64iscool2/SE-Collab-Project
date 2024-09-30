@@ -1,26 +1,32 @@
 package data.impl;
+
 import data.DataStorageSystem;
 import data.InputSource;
 import data.OutputSource;
-import data.WriteResult;
-public class DataStorageSystemImpl implements DataStorageSystem{
-	
+import utils.Status;
+
+public class DataStorageSystemImpl implements DataStorageSystem {
+
+	private InputSource<?> input;
 	private OutputSource output;
-	private InputSource input;
-	public DataStorageSystemImpl(InputSource input, OutputSource output) {
+
+	public DataStorageSystemImpl(InputSource<?> input, OutputSource output) {
 		this.input = input;
 		this.output = output;
 	}
+
 	@Override
-	public Iterable<Integer> read(InputSource inputSource) {
+	public Iterable<Integer> read(InputSource<?> inputSource) {
 		return null;
 	}
+
 	@Override
-	public void writeTo(OutputSource outputSource) {
-		
+	public Status writeTo(OutputSource outputSource) {
+		return Status.BAD;
 	}
+
 	@Override
-	public WriteResult appendSingleResult(OutputSource outputSource, String result) {
+	public Status appendSingleResult(OutputSource outputSource, String result) {
 		return null;
 	}
 
