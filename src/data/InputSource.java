@@ -3,10 +3,11 @@ package data;
 import java.util.Iterator;
 
 /**
- * Effectively identical to {@link Iterator} unless we need additional functionality
- * @see java.util.Iterator
- * @param <T> The type of input data we would like to obtain, whether that be Strings, ints, longs, etc.
+ * An InputSource<T> can take several forms, (more thinking aloud than anything)
+ * InputSource<Integer>, InputSource<String> Input<List<Integer>>
+ * 
+ * @param <T>
  */
 public interface InputSource<T> extends Iterator<T> {
-		
+
 }
