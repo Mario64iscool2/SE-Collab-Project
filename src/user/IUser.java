@@ -17,4 +17,9 @@ public interface IUser {
 	 */
 	public Status setDestination(String path);
 
+	/**
+	 * Calls to start the computation processes given the source and destination supplied to this object.
+	 */
+	public void startJob();
+	
 }
