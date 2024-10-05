@@ -27,7 +27,7 @@ public class DataStorageSystemImpl implements DataStorageSystem {
 
 	@Override
 	public Status appendSingleResult(OutputSource outputSource, String result) {
-		return null;
+		return Status.BAD;
 	}
 
 }
