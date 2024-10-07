@@ -25,7 +25,7 @@ public class NextPrimeCompute implements ICompute {
 			}
 		return isPrimeImproved(i) ? recursiveCompute(i + 1) : recursiveCompute(i);
 	}
-	boolean isInteger(Object obj) { 
+	public boolean isInteger(Object obj) { 
 		return obj instanceof Integer; 
 	}
 
