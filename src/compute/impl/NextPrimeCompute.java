@@ -12,7 +12,21 @@ public class NextPrimeCompute implements ICompute {
 	public long compute(int i) {
 		// If our starting value is prime, we need to start from the next integer, as
 		// we're looking for the next greatest prime.
+		/**
+  		* @author Gavin Bell
+    		* validation test
+      		*/
+		boolean vtest=false;
+		while(vtest=false){
+			if(isInteger(i)==true){
+				vtest=true;
+			} else {
+				System.out.println("Invalid: Not an integer");
+			}
 		return isPrimeImproved(i) ? recursiveCompute(i + 1) : recursiveCompute(i);
+	}
+	public static boolean isInteger(Object obj) { 
+		return obj instanceof Integer; 
 	}
 
 	/**
@@ -24,6 +38,7 @@ public class NextPrimeCompute implements ICompute {
 	 */
 	public long recursiveCompute(int i) {
 		return isPrimeImproved(i) ? i : recursiveCompute(i + 1);
+		
 	}
 
 	/**
