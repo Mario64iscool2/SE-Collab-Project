@@ -26,7 +26,7 @@ public class EngineTest {
 		Assertions.assertEquals("result", engine.compute(7, dst));
 		
 		//mock input
-		InputSource<?> src = Mockito.mock(InputSource.class);
+		InputSource src = Mockito.mock(InputSource.class);
 		
 		//test compute(InputSource<?> src, OutputSource dst)
 		Assertions.assertEquals("result", engine.compute(src, dst));

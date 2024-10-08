@@ -7,7 +7,7 @@ import utils.Status;
  */
 public interface DataStorageSystem {
 
-	Iterable<Integer> read(InputSource<?> inputSource);
+	Iterable<Integer> read(InputSource inputSource);
 	
 	Status writeTo(OutputSource outputSource);
 	

@@ -21,7 +21,7 @@ interface IEngine {
 	 * @implNote Data store management will run parallel to this interface, as to get from InputSource to {@code int}, we will need to manipulate the incoming information.
 	 * @return a string containing the job's result.
 	 */
-	public abstract String compute(InputSource<?> src, OutputSource dst);
+	public abstract String compute(InputSource src, OutputSource dst);
 	
 	/**
 	 * If the input is a single integer, use this.

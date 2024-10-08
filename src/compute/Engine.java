@@ -30,10 +30,4 @@ public abstract class Engine implements IEngine {
 		this.end = end;
 	}
 
-	@Override
-	public String compute(InputSource<?> src, OutputSource dst) {
-
-		return "".toString();
-	}
-
 }
