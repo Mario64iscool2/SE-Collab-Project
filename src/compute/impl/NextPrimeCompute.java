@@ -24,7 +24,7 @@ public class NextPrimeCompute implements ICompute {
 				System.out.println("Invalid: Not an integer");
 			}
 		return isPrimeImproved(i) ? recursiveCompute(i + 1) : recursiveCompute(i);
-	}
+		}
 	boolean isInteger(Object obj) { 
 		return obj instanceof Integer; 
 	}
