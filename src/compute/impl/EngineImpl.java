@@ -11,21 +11,21 @@ public class EngineImpl extends Engine {
 	public EngineImpl(ICompute compute) {
 		computation = compute;
 	}
-	private Iterable<Integer> integerList;
 
 	@Override
 	public String compute(int i, OutputSource dst) {
-		long result = computation.compute(i);
-
-		return Long.toString(result);
+		String result = Long.toString(i)+pair+computation.compute(i)+end;
+		return result;
 	}
 
 	@Override
 	public String compute(InputSource src, OutputSource dst) {
-		long result = 0;
-		
-		// result = computation.compute()
-		return Long.toString(result);
+		String result = "";
+		for (Integer i : src.getInputs()) {
+			result += compute(i, dst);
+		}
+		dst.write(result);
+		return result;
 	}
 
 }

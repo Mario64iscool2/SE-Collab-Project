@@ -16,7 +16,7 @@ import data.OutputSource;
  */
 public abstract class Engine implements IEngine {
 
-	// The pair delimiter
+	/** The pair delimiter */
 	protected char pair;
 	/** The result delimiter */
 	protected char end;
