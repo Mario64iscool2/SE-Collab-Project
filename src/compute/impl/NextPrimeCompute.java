@@ -17,14 +17,13 @@ public class NextPrimeCompute implements ICompute {
     		* validation test
       		*/
 		boolean vtest=false;
-		while(vtest=false){
 			if(isInteger(i)==true){
 				vtest=true;
 			} else {
 				System.out.println("Invalid: Not an integer");
 			}
 		return isPrimeImproved(i) ? recursiveCompute(i + 1) : recursiveCompute(i);
-		}
+	}
 	boolean isInteger(Object obj) { 
 		return obj instanceof Integer; 
 	}
