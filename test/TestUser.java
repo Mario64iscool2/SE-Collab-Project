@@ -7,7 +7,7 @@ public class TestUser {
 	
 	// TODO 3: change the type of this variable to the name you're using for your
 	// User <-> ComputeEngine API; also update the parameter passed to the constructor
-	private final ComputationCoordinator coordinator;
+	private final ICompute coordinator;
 
 	public TestUser(ComputationCoordinator coordinator) {
 		this.coordinator = coordinator;
