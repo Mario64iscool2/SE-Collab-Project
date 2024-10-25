@@ -12,6 +12,7 @@ import java.util.concurrent.Future;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import compute.IEngine;
 
 public class TestMultiUser {
 	
