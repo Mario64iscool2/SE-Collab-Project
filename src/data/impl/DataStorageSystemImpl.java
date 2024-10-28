@@ -16,18 +16,13 @@ public class DataStorageSystemImpl implements DataStorageSystem {
 	}
 
 	@Override
-	public Iterable<Integer> read(InputSource inputSource) {
-		return null;
+	public Iterable<Integer> read() {
+		return input.getInputs();
 	}
 
 	@Override
-	public Status writeTo(OutputSource outputSource) {
-		return Status.BAD;
-	}
-
-	@Override
-	public Status appendSingleResult(OutputSource outputSource, String result) {
-		return Status.BAD;
+	public Status appendSingleResult(String result) {
+		return output.write(result);
 	}
 
 }

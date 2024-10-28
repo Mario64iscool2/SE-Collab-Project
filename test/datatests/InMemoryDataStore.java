@@ -20,23 +20,17 @@ public class InMemoryDataStore implements DataStorageSystem {
 	InMemoryOutput memOutput;
 
 	@Override
-	public Iterable<Integer> read(InputSource inputSource) {
-		if (inputSource != null) {
-			return inputSource.getInputs();
-		} else {
+	public Iterable<Integer> read() {
+		if (memInput != null) {
 			return memInput.getInputs();
+		} else {
+			return null;
 		}
 	}
 
 	@Override
-	public Status writeTo(OutputSource outputSource) {
-		((InMemoryOutput) outputSource).getOutput();
-		return Status.OK;
-	}
-
-	@Override
-	public Status appendSingleResult(OutputSource outputSource, String result) {
-		((InMemoryOutput) outputSource).getOutput().add(result);
+	public Status appendSingleResult(String result) {
+		memOutput.write(result);
 		return Status.OK;
 	}
 

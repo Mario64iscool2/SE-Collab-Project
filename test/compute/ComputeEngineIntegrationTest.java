@@ -17,24 +17,26 @@ public class ComputeEngineIntegrationTest {
 	@Test
 	public void testComputeEngine() {
 
-		ICompute iCompute = new NextPrimeCompute();
-		Engine engine = new EngineImpl(iCompute);
-
+		// Instantiate our Compute Core + Engine Pairing
+		NextPrimeCompute compute = new NextPrimeCompute();
+		EngineImpl engine = new EngineImpl(compute);
+		
+		// Create test input
 		ArrayList<Integer> list = new ArrayList<Integer>();
 		list.add(1);
 		list.add(10);
 		list.add(25);
 
+		// Create the data storage layer
 		InMemoryInput input = new InMemoryInput(list);
 		InMemoryOutput output = new InMemoryOutput();
-
 		InMemoryDataStore dataStore = new InMemoryDataStore(input, output);
 
-		// compute
-		String computationResult = engine.compute(input, output);
+		// Compute
+		String computationResult = engine.compute(dataStore);
 
-		// use assertEquals() to test if it was successful
-		Assertions.assertEquals(output.getOutput(),
-				new ArrayList<>(Arrays.asList(computationResult.split(Character.toString(engine.pair)))));
+		// Verification (two ways)
+		Assertions.assertEquals("1,2;10,11;25,29;", computationResult);
+		Assertions.assertArrayEquals(new String[] { "1,2;", "10,11;", "25,29;" }, output.getOutput().toArray());
 	}
 }

@@ -1,5 +1,6 @@
 package compute;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -11,28 +12,17 @@ import data.OutputSource;
 
 public class EngineTest {
 
+	/**
+	 * Blanket test of Compute Engine Wrapper.
+	 */
 	@Test
 	public void testEngine() {
-		//mock parameters
-		ICompute mockICompute = Mockito.mock(ICompute.class);
-		
-		//mock class
-		Engine engine = new EngineImpl(mockICompute);
-		
-		//mock Output
-		OutputSource dst = Mockito.mock(OutputSource.class);
-		
-		//test compute(int i, OutputSource dst)
-		Assertions.assertEquals("result", engine.compute(7, dst));
-		
-		//mock input
-		InputSource src = Mockito.mock(InputSource.class);
-		
-		//test compute(InputSource<?> src, OutputSource dst)
-		Assertions.assertEquals("result", engine.compute(src, dst));
-		
-		
-	
+		// Generate mock ICompute-implementer that will just output 11.
+		ICompute mockICompute = Mockito.mock();
+		Mockito.when(mockICompute.compute(Mockito.anyInt())).thenReturn(11L);
+		EngineImpl eng = new EngineImpl(mockICompute);
+		eng.setDelimiters(',', ';');
+		assertEquals("1,11;", eng.compute(1));
 	}
 
 }

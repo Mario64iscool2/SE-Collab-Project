@@ -17,7 +17,7 @@ public class InMemoryOutput implements OutputSource {
 
 	@Override
 	public Status write(String s) {
-		// TODO Auto-generated method stub
-		return Status.BAD;
+			boolean addSucceeded = output.add(s);
+		return addSucceeded? Status.OK : Status.BAD;
 	}
 }

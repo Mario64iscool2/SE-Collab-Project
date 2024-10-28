@@ -1,33 +1,38 @@
 package compute;
 
+import data.DataStorageSystem;
 import data.InputSource;
 import data.OutputSource;
 
-/** Outlines the outward-facing methods that our computation engine must have.
+/**
+ * Outlines the outward-facing methods that our computation engine must have.
+ * 
  * @author mario64iscool2
  *
  */
 interface IEngine {
 	/**
-	 * Sets the output delimiters (characters between input/result pairs and between results)
+	 * Sets the output delimiters (characters between input/result pairs and between
+	 * results)
+	 * 
 	 * @param pair delimits the input integer from the result
-	 * @param end delimits results from one another
+	 * @param end  delimits results from one another
 	 */
 	void setDelimiters(char pair, char end);
+
 	/**
 	 * Retrieves the completed job's result
-	 * @param src An input Source of some kind that can be interpreted as a sequence of {@code int}s
-	 * @param dst An output of some kind that can take our results.
-	 * @implNote Data store management will run parallel to this interface, as to get from InputSource to {@code int}, we will need to manipulate the incoming information.
+	 * 
+	 * @param dss A data-storage implementation that is read/write capable.
 	 * @return a string containing the job's result.
 	 */
-	public abstract String compute(InputSource src, OutputSource dst);
-	
+	public abstract String compute(DataStorageSystem dss);
+
 	/**
 	 * If the input is a single integer, use this.
+	 * 
 	 * @param i The integer input to be operated on
-	 * @param dst The outputsource for the operation
 	 * @return The result as a string for this single computation
 	 */
-	public abstract String compute(int i, OutputSource dst);
+	public abstract String compute(int i);
 }
