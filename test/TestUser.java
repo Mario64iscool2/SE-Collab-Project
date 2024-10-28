@@ -1,7 +1,7 @@
 package edu.softwareeng.sample;
 
 import java.io.File;
-import compute.IEngine;
+import compute.Engine;
 
 
 public class TestUser {
