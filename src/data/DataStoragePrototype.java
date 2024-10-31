@@ -4,16 +4,13 @@ import utils.Status;
 
 public class DataStoragePrototype {
 	public void prototype(DataStorageSystem dataStore) {
-		InputSource inputSource = null;
-		OutputSource outputSource = null;
 
-		Iterable<Integer> loadedData = dataStore.read(inputSource);
-		dataStore.writeTo(outputSource);
+		Iterable<Integer> loadedData = dataStore.read();
 
 		for (int i : loadedData) {
 			String result = "" + i;
 
-			Status status = dataStore.appendSingleResult(outputSource, result);
+			Status status = dataStore.appendSingleResult(result);
 
 			if (status != Status.OK) {
 				System.out.println("Failed!");
