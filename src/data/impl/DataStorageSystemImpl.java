@@ -7,27 +7,22 @@ import utils.Status;
 
 public class DataStorageSystemImpl implements DataStorageSystem {
 
-	private InputSource<?> input;
+	private InputSource input;
 	private OutputSource output;
 
-	public DataStorageSystemImpl(InputSource<?> input, OutputSource output) {
+	public DataStorageSystemImpl(InputSource input, OutputSource output) {
 		this.input = input;
 		this.output = output;
 	}
 
 	@Override
-	public Iterable<Integer> read(InputSource<?> inputSource) {
-		return null;
+	public Iterable<Integer> read() {
+		return input.getInputs();
 	}
 
 	@Override
-	public Status writeTo(OutputSource outputSource) {
-		return Status.BAD;
-	}
-
-	@Override
-	public Status appendSingleResult(OutputSource outputSource, String result) {
-		return Status.BAD;
+	public Status appendSingleResult(String result) {
+		return output.write(result);
 	}
 
 }

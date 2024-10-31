@@ -16,7 +16,7 @@ import data.OutputSource;
  */
 public abstract class Engine implements IEngine {
 
-	// The pair delimiter
+	/** The pair delimiter */
 	protected char pair;
 	/** The result delimiter */
 	protected char end;
@@ -28,12 +28,6 @@ public abstract class Engine implements IEngine {
 		// TODO Auto-generated method stub
 		this.pair = pair;
 		this.end = end;
-	}
-
-	@Override
-	public String compute(InputSource<?> src, OutputSource dst) {
-
-		return "".toString();
 	}
 
 }

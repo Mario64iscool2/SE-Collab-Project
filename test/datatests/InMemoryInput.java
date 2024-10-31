@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class InMemoryInput {
+import data.InputSource;
+
+public class InMemoryInput implements InputSource {
 	
 	//make immutable
 	private final List<Integer> inputs = new ArrayList<>();
@@ -18,5 +20,4 @@ public class InMemoryInput {
 	public List<Integer> getInputs() {
 		return new ArrayList<>(inputs);
 	}
-
 }

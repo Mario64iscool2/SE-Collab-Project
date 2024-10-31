@@ -7,11 +7,14 @@ import utils.Status;
  */
 public interface DataStorageSystem {
 
-	Iterable<Integer> read(InputSource<?> inputSource);
-	
-	Status writeTo(OutputSource outputSource);
-	
-	Status appendSingleResult(OutputSource outputSource, String result);
+	/**
+	 * Retrieves the list of input integers to be iterated on for computation
+	 * 
+	 * @return An Iterable<Integer> (usually List-implementing) or null if the
+	 *         DataStorageSystem doesn't have an input.
+	 */
+	Iterable<Integer> read();
 
+	Status appendSingleResult(String result);
 
 }

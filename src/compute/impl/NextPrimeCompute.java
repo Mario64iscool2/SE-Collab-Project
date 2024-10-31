@@ -1,4 +1,5 @@
 package compute.impl;
+
 import compute.ICompute;
 
 /**
@@ -48,17 +49,29 @@ public class NextPrimeCompute implements ICompute {
 
 	/**
 	 * Determines the primeness of an integer. Uses the optimization that any number
-	 * that is a square is automatically composite.
+	 * that is a square is automatically composite and that the only even prime is
+	 * 2.
 	 * 
 	 * @author Cameron Jarvis
 	 * @param val the integer whose primeness is being tested.
 	 * @return the boolean truth of whether <b>val</b> is prime or not.
 	 */
 	boolean isPrimeImproved(int val) {
+		// 1 and any number below it are nonprime.
 		if (val <= 1) {
 			return false;
 		}
-		for (int i = 2; i < Math.floor(Math.sqrt(val)); i++) {
+		// 2 is the only even prime, so we explicitly check it.
+		if (val == 2) {
+			return true;
+		}
+		// Any even number greater than 2 will be composite
+		if (val % 2 == 0) {
+			return false;
+		}
+		// Since every even number greater than 2 is composite by definition of even, we
+		// only need to iterate along odds.
+		for (int i = 3; i < Math.floor(Math.sqrt(val)); i += 2) {
 			if (val % i == 0) {
 				return false;
 			}

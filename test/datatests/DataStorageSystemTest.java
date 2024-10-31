@@ -22,8 +22,8 @@ public class DataStorageSystemTest {
 		
 		DataStorageSystem dataStore = new DataStorageSystemImpl(mockInput, mockOutput);
 		
-		Assertions.assertEquals(4L, dataStore.read(mockInput));
+		Assertions.assertEquals(4L, dataStore.read());
 		
-		Assertions.assertEquals(Status.OK, dataStore.appendSingleResult(mockOutput, "result"));
+		Assertions.assertEquals(Status.OK, dataStore.appendSingleResult("result"));
 	}
 }
