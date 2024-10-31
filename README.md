@@ -4,14 +4,19 @@
 Calculate the first prime number greater than the input.
 ## Design Diagram
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://github.com/Mario64iscool2/SE-Collab-Project/blob/next-prime/Systems%20Diagram%20(Dark).png">
-  <img alt="Shows the system design diagram." src="https://github.com/Mario64iscool2/SE-Collab-Project/blob/next-prime/Systems%20Diagram%20(Light).png">
+  <source media="(prefers-color-scheme: dark)" srcset="Systems%20Diagram%20(Dark).png">
+  <img alt="Shows the system design diagram." src="Systems%20Diagram%20(Light).png">
 </picture>
 
 ## Classpath management
 1. Navigate to your project directory
 2. Run `.\gradlew eclipse` to update .classpath and .project
 3. Add both to your .gitignore
+
+## Build Steps (Generating Protocol Buffers)
+1. Navigate to your project directory
+2. Run `.\gradlew generateProto` to generate protocol buffers
+3. If this fails on account of inability to delete, delete the `build/generated` directory manually, then re-run.
 
 # Code Standards:
 We have a very short list of expectations for code around here.
