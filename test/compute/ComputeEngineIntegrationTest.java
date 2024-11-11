@@ -1,7 +1,6 @@
 package compute;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -38,5 +37,6 @@ public class ComputeEngineIntegrationTest {
 		// Verification (two ways)
 		Assertions.assertEquals("1,2;10,11;25,29;", computationResult);
 		Assertions.assertArrayEquals(new String[] { "1,2;", "10,11;", "25,29;" }, output.getOutput().toArray());
+		
 	}
 }

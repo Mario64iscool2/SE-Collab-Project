@@ -1,8 +1,6 @@
 package datatests;
 
 import data.DataStorageSystem;
-import data.InputSource;
-import data.OutputSource;
 import utils.Status;
 
 public class InMemoryDataStore implements DataStorageSystem {
