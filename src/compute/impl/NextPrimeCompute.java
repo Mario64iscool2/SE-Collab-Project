@@ -15,11 +15,10 @@ public class NextPrimeCompute implements ICompute {
 		// we're looking for the next greatest prime.
 		long j = 1;
 		// If i+j is nonprime, iterate until it is.
-		while (!isPrimeImproved(j+i))
-		{
+		while (!isPrimeImproved(j + i)) {
 			j++;
 		}
-		return j+i;
+		return j + i;
 	}
 
 	/**
