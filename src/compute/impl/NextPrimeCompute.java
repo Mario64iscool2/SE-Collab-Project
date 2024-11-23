@@ -13,7 +13,12 @@ public class NextPrimeCompute implements ICompute {
 	public long compute(int i) {
 		// If our starting value is prime, we need to start from the next integer, as
 		// we're looking for the next greatest prime.
-		return isPrimeImproved(i) ? recursiveCompute(i + 1) : recursiveCompute(i);
+		long j = 1;
+		// If i+j is nonprime, iterate until it is.
+		while (!isPrimeImproved(j + i)) {
+			j++;
+		}
+		return j + i;
 	}
 
 	/**
@@ -22,6 +27,7 @@ public class NextPrimeCompute implements ICompute {
 	 * 
 	 * @param i the integer whose primeness is being checked.
 	 * @return the next greatest number that is prime
+	 * @deprecated (Stack Overflow is bad.)
 	 */
 	public long recursiveCompute(int i) {
 		return isPrimeImproved(i) ? i : recursiveCompute(i + 1);
@@ -56,7 +62,7 @@ public class NextPrimeCompute implements ICompute {
 	 * @param val the integer whose primeness is being tested.
 	 * @return the boolean truth of whether <b>val</b> is prime or not.
 	 */
-	boolean isPrimeImproved(int val) {
+	boolean isPrimeImproved(long val) {
 		// 1 and any number below it are nonprime.
 		if (val <= 1) {
 			return false;
@@ -71,7 +77,7 @@ public class NextPrimeCompute implements ICompute {
 		}
 		// Since every even number greater than 2 is composite by definition of even, we
 		// only need to iterate along odds.
-		for (int i = 3; i < Math.floor(Math.sqrt(val)); i += 2) {
+		for (long i = 3; i <= Math.floor(Math.sqrt(val)); i += 2) {
 			if (val % i == 0) {
 				return false;
 			}

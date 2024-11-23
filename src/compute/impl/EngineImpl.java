@@ -3,13 +3,13 @@ package compute.impl;
 import compute.Engine;
 import compute.ICompute;
 import data.DataStorageSystem;
-import data.InputSource;
-import data.OutputSource;
 
 public class EngineImpl extends Engine {
 
 	/**
-	 * Instantiate a new EngineImpl with the specified compute core, and default delimiters of ',' and ';'
+	 * Instantiate a new EngineImpl with the specified compute core, and default
+	 * delimiters of ',' and ';'
+	 * 
 	 * @param compute The computation core to use
 	 */
 	public EngineImpl(ICompute compute) {

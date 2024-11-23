@@ -2,13 +2,10 @@ package compute;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import compute.impl.EngineImpl;
-import data.InputSource;
-import data.OutputSource;
 
 public class EngineTest {
 
