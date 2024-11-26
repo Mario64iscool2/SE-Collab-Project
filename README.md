@@ -8,6 +8,16 @@ Calculate the first prime number greater than the input.
   <img alt="Shows the system design diagram." src="Systems%20Diagram%20(Light).png">
 </picture>
 
+## Design Workflow
+1. User sends a request to our compute server containing
+ - Delimiters chosen
+ - File path (Assume that the computation server has access to this location and can obtain a file handle
+ - Result Destination (Either to a file, stdout, null, etc.)
+ - User subscribes to the result if opted (Futures potentially as an implementation)
+2. Computation Coordinator starts its work, and will potentially notify our user when complete.
+3. DataStorage has access to our storage infrastructure, and will handle reading and writing. This process will live on the same server as the computation, because sending information over the wire to then write locally makes little sense.
+   
+
 ## Classpath management
 1. Navigate to your project directory
 2. Run `.\gradlew eclipse` to update .classpath and .project
