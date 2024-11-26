@@ -1,9 +1,9 @@
 package datatests;
 
-import data.DataStorageSystem;
+import data.IDataStorage;
 import utils.Status;
 
-public class InMemoryDataStore implements DataStorageSystem {
+public class InMemoryDataStore implements IDataStorage {
 
 	/**
 	 * a test-only in-memory implementation of DataStorageSystem api

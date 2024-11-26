@@ -5,7 +5,7 @@ package utils;
  * statuses if you'd like.
  */
 public enum Status {
-	OK(true), BAD(false);
+	OK(true), BAD(false), BAD_INPUT(false);
 
 	private boolean success;
 

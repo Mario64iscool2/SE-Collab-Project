@@ -1,6 +1,6 @@
 package user.impl;
 
-import compute.Engine;
+import compute.Coordinator;
 import user.AbstractUser;
 
 public class UserImpl extends AbstractUser {
@@ -15,7 +15,7 @@ public class UserImpl extends AbstractUser {
 	 * @param eng a Computation Engine-wrapper object that handles the inner
 	 *            workings of the job specified here.
 	 */
-	public UserImpl(String src, String dst, Engine eng) {
+	public UserImpl(String src, String dst, Coordinator eng) {
 		this.source = src;
 		this.destination = dst;
 		this.engine = eng;
@@ -37,7 +37,7 @@ public class UserImpl extends AbstractUser {
 	 *             result
 	 * @param end  the delimiter between two pairs of input-result groups
 	 */
-	public UserImpl(String src, String dst, Engine eng, char pair, char end) {
+	public UserImpl(String src, String dst, Coordinator eng, char pair, char end) {
 		this.source = src;
 		this.destination = dst;
 		this.engine = eng;
@@ -48,7 +48,7 @@ public class UserImpl extends AbstractUser {
 
 	@Override
 	public void startJob() {
-
+		
 	}
 
 }

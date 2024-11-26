@@ -5,7 +5,7 @@ import org.mockito.Mockito;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import data.DataStorageSystem;
+import data.IDataStorage;
 import data.InputSource;
 import data.OutputSource;
 import data.impl.DataStorageSystemImpl;
@@ -19,7 +19,7 @@ public class DataStorageSystemTest {
 		InputSource mockInput = Mockito.mock(InputSource.class);
 		OutputSource mockOutput = Mockito.mock(OutputSource.class);
 
-		DataStorageSystem dataStore = new DataStorageSystemImpl(mockInput, mockOutput);
+		IDataStorage dataStore = new DataStorageSystemImpl(mockInput, mockOutput);
 
 		Assertions.assertEquals(4L, dataStore.read());
 

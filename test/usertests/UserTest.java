@@ -5,7 +5,7 @@ import static org.mockito.Mockito.when;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import compute.Engine;
+import compute.Coordinator;
 import compute.impl.EngineImpl;
 import user.IUser;
 import user.impl.UserImpl;
@@ -18,7 +18,7 @@ public class UserTest {
 		//mock parameters
 		String src = "src";
 		String dst = "dst";
-		Engine mockEngine = Mockito.mock(EngineImpl.class);
+		Coordinator mockEngine = Mockito.mock(EngineImpl.class);
 		
 		//create instance with mock parameters
 		IUser user1 = new UserImpl(src, dst, mockEngine);

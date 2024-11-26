@@ -1,13 +1,13 @@
 package compute.impl;
 
-import compute.ICompute;
+import compute.ICore;
 
 /**
  * Computes the first prime number greater than the input.
  * 
  * @author Cameron Jarvis
  */
-public class NextPrimeCompute implements ICompute {
+public class NextPrimeCompute implements ICore {
 
 	@Override
 	public long compute(int i) {

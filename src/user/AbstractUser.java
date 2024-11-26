@@ -4,14 +4,14 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
-import compute.Engine;
+import compute.Coordinator;
 import utils.Status;
 
 public abstract class AbstractUser implements IUser {
 
 	protected String source = "";
 	protected String destination;
-	protected Engine engine;
+	protected Coordinator engine;
 
 	@Override
 	public Status setSource(String path) {
