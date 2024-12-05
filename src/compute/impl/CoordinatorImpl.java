@@ -3,43 +3,43 @@ package compute.impl;
 import compute.ComputationResult;
 import compute.Coordinator;
 import compute.ICore;
-import user.JobSpec;
+import utils.Status;
 import data.IDataStorage;
 import data.impl.DataStorageSystemImpl;
+import user.IJobSpec;
+import user.IJobSpec.InputType;
 
 public class CoordinatorImpl extends Coordinator {
 
-	
-	private JobSpec spec;
-	private DataStorageSystemImpl dss;
+	private IDataStorage dss;
 	/**
 	 * Instantiate a new CoordinatorImpl with the specified compute core, and default
 	 * delimiters of ',' and ';'
 	 * 
 	 * @param compute The computation core to use
 	 */
-	public CoordinatorImpl(ICore compute) {
+	public CoordinatorImpl(ICore compute, IDataStorage dss) {
 		computation = compute;
-		pair = ',';
-		end = ';';
+		pair = ",";
+		end = ";";
+		this.dss = dss;
 	}
 
 	@Override
-	public ComputationResult compute(JobSpec j) {
-		spec = j;
-		String result = "";
-		for (int i : dss.readToIterator()) {
-			String temp = compute(i);
-			result += temp;
-			appendSingleResult(temp);
+	public ComputationResult compute(IJobSpec j) {
+		if(j.getInputType() == InputType.FILE)
+		{
+			
 		}
-		return result;
-	}
-
-	@Override
-	public ComputationResult compute(int i) {
-		// TODO Auto-generated method stub
-		return null;
+		pair = j.getPairDelim();
+		end = j.getEndDelim();
+		for (int i : dss.readToIterator(null).getValues()) {
+			String temp = ""+i+pair+computation.compute(i)+end;
+			if(!dss.appendSingleResult(null, temp).success())
+			{
+			}
+		}
+		return new ComputationResult();
 	}
 
 }

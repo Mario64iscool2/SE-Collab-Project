@@ -1,9 +1,6 @@
 package data.impl;
 
-import java.io.File;
-import java.io.FileReader;
-import java.util.stream.IntStream;
-
+import data.DataRequestResponse;
 import data.IDataStorage;
 import data.InputSource;
 import data.OutputSource;
@@ -18,38 +15,35 @@ public class DataStorageSystemImpl implements IDataStorage {
 	}
 
 	@Override
-	public Status appendSingleResult(String result) {
+	public Status appendSingleResult(OutputSource out, String result) {
 		return out.write(result);
 	}
 
 	@Override
-	public Iterable<Integer> readToIterator() {
-		return in.getInputs();
+	public DataRequestResponse readToIterator(InputSource in) {
+		if(in != null)
+		{
+			return new DataRequestResponse(Status.OK, in.getInputs());
+		}
+		return new DataRequestResponse(Status.OK, this.in.getInputs());
 	}
 
 	@Override
-	public IntStream readToStream() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Status appendSingleRaw(Long result) {
+	public Status appendSingleRaw(OutputSource out, Long result) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public Status setFilePaths(String src, String dst) {
-		boolean err = false;
-		try {
-			
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-			err = true;
+		
+		if(src == null | src == "") {
+			in = new DirectInputSource();
 		}
-		return err ? Status.OK : Status.BAD;
+		if(dst == null | dst == "") {
+			out = new EchoOut();
+		}
+		return Status.OK;
 	}
 
 }

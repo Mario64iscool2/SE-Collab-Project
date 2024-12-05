@@ -1,0 +1,9 @@
+
+message Status {
+    optional StatusValue status = 1;
+  enum StatusValue {
+    OK = 1;
+    BAD = 2;
+    BAD_INPUT = 3;
+  }
+}

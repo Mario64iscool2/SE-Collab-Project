@@ -2,11 +2,11 @@ package prototype;
 
 import compute.ComputationResult;
 import compute.ICore;
-import user.JobSpec;
+import user.IJobSpec;
 import utils.Status;
 
 public class CoordinatorProto {
-	JobSpec spec;
+	IJobSpec spec;
 	ICore computation;
 	Iterable<Integer> inputs;
 	public ComputationResult compute(ICore computation) {
@@ -16,7 +16,7 @@ public class CoordinatorProto {
 			// temp.toString();
 			// append to out.
 		}
-		return new ComputationResult(Status.OK,proto.spec.getOutputFilePath());
+		return new ComputationResult(Status.OK,proto.spec.getOutput());
 	}
 
 }

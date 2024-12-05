@@ -1,31 +1,35 @@
 package user;
 
-public class JobSpec {
+public class JobSpec implements IJobSpec {
 	String inputFilePath;
-	public String getInputFilePath() {
-		return inputFilePath;
+	@Override
+	public InputType getInputType() {
+		return InputType.FILE;
 	}
 
-	public String getOutputFilePath() {
-		return outputFilePath;
+	@Override
+	public OutputType getOutputType() {
+		return OutputType.FILE;
 	}
 
-	public char getPairDelim() {
+	@Override
+	public String getPairDelim() {
 		return pairDelim;
 	}
 
-	public char getEndDelim() {
+	@Override
+	public String getEndDelim() {
 		return endDelim;
 	}
 
 	String outputFilePath;
-	char pairDelim, endDelim;
+	String pairDelim, endDelim;
 	
-	public JobSpec(String i, String o, char p, char e) {
-		this.inputFilePath =i;
-		this.outputFilePath = o;
-		this.pairDelim = p;
-		this.endDelim = e;
+	public JobSpec(String in, String out, String pair, String end, InputType iType, OutputType oType) {
+		this.inputFilePath = in;
+		this.outputFilePath = out;
+		this.pairDelim = pair;
+		this.endDelim = end;
 	}
 	
 }

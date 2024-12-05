@@ -1,3 +1,6 @@
-message inboundRequest {
-    optional string 
+message JobSpec {
+    optional string inPath = 1;
+    optional string outPath = 2;
+    // delims[0] is the pair delimiter and delims[1] is the end delimiter
+    optional string delims = 3;
 }

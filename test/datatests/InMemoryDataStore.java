@@ -1,6 +1,11 @@
 package datatests;
 
+import data.DataRequestResponse;
 import data.IDataStorage;
+import data.InputSource;
+import data.OutputSource;
+import data.impl.DirectInputSource;
+import data.impl.EchoOut;
 import utils.Status;
 
 public class InMemoryDataStore implements IDataStorage {
@@ -18,17 +23,27 @@ public class InMemoryDataStore implements IDataStorage {
 	InMemoryOutput memOutput;
 
 	@Override
-	public Iterable<Integer> read() {
+	public DataRequestResponse readToIterator(InputSource in) {
 		if (memInput != null) {
-			return memInput.getInputs();
+			return new DataRequestResponse(Status.OK,memInput.getInputs());
 		} else {
 			return null;
 		}
 	}
 
 	@Override
-	public Status appendSingleResult(String result) {
-		memOutput.write(result);
+	public Status appendSingleResult(OutputSource out, String result) {
+		return memOutput.write(result);
+	}
+	
+	@Override
+	public Status appendSingleRaw(OutputSource out, Long result) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Status setFilePaths(String src, String dst) {
 		return Status.OK;
 	}
 

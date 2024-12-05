@@ -7,14 +7,15 @@ import utils.Status;
  */
 public class DataStoragePrototype {
 	CoordinatorProto proto;
-	public void prototype(IDataStorage dataStore) {
-		dataStore.setFilePaths(proto.spec.getInputFilePath(), proto.spec.getOutputFilePath());
-		Iterable<Integer> loadedData = dataStore.readToIterator();
+	public void prototype(IDataStorage dataStore) {		
+		Iterable<Integer> loadedData = dataStore.readToIterator(() -> {
+			return null;
+		}).getValues();
 
 		for (int i : loadedData) {
 			String result = "" + i;
 
-			Status status = dataStore.appendSingleResult(result);
+			Status status = dataStore.appendSingleResult(null,result);
 
 			if (status != Status.OK) {
 				System.out.println("Failed!");

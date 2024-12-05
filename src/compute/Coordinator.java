@@ -7,9 +7,9 @@ package compute;
 public abstract class Coordinator implements IComputeCoordinator {
 
 	/** The pair delimiter */
-	protected char pair;
+	protected String pair;
 	/** The result delimiter */
-	protected char end;
+	protected String end;
 	/** The computation core (can be whatever you'd like) */
 	protected ICore computation;
 

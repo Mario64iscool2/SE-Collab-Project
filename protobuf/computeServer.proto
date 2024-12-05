@@ -1,0 +1,6 @@
+import "Status.proto";
+import "computeRequest.proto";
+
+service ComputeServer {
+    rpc Compute(JobSpec) returns (Status) {}
+}
