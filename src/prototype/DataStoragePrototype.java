@@ -1,5 +1,6 @@
 package prototype;
 
+import data.FileInputConfig;
 import data.IDataStorage;
 import utils.Status;
 /**
@@ -8,9 +9,7 @@ import utils.Status;
 public class DataStoragePrototype {
 	CoordinatorProto proto;
 	public void prototype(IDataStorage dataStore) {		
-		Iterable<Integer> loadedData = dataStore.readToIterator(() -> {
-			return null;
-		}).getValues();
+		Iterable<Integer> loadedData = dataStore.read(new FileInputConfig("")).getValues();
 
 		for (int i : loadedData) {
 			String result = "" + i;

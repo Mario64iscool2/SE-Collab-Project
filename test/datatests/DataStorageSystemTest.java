@@ -7,8 +7,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import data.IDataStorage;
-import data.InputSource;
-import data.OutputSource;
+import data.InputConfig;
+import data.OutputConfig;
 import data.impl.DataStorageSystemImpl;
 import utils.Status;
 
@@ -17,15 +17,13 @@ public class DataStorageSystemTest {
 	@Test
 	public void testDataStorageSystem() {
 		// mock parameters
-		InputSource mockInput = Mockito.mock(InputSource.class);
-		ArrayList<Integer> list = new ArrayList<Integer>();
-		list.add(4);
-		OutputSource mockOutput = Mockito.mock(OutputSource.class);
-
+		InputConfig mockIn = Mockito.mock(InputConfig.class);
+		ArrayList<Integer> e = new ArrayList<Integer>();
+		e.add(4);
+		OutputConfig mockOutput = Mockito.mock(OutputConfig.class);
 		IDataStorage dataStore = new DataStorageSystemImpl();
-		
 
-		Assertions.assertEquals(4L, dataStore.readToIterator(mockInput).getValues());
+		Assertions.assertEquals(4, dataStore.read(mockIn).getValues().iterator().next());
 
 		Assertions.assertEquals(Status.OK, dataStore.appendSingleResult(mockOutput,"result"));
 	}

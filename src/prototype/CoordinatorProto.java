@@ -3,6 +3,7 @@ package prototype;
 import compute.ComputationResult;
 import compute.ICore;
 import user.IJobSpec;
+import user.IJobSpec.OutputType;
 import utils.Status;
 
 public class CoordinatorProto {
@@ -16,7 +17,7 @@ public class CoordinatorProto {
 			// temp.toString();
 			// append to out.
 		}
-		return new ComputationResult(Status.OK,proto.spec.getOutput());
+		return new ComputationResult(Status.OK,proto.spec.getOutputPath(),OutputType.FILE);
 	}
 
 }

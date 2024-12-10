@@ -65,10 +65,10 @@ public class Client {
 		}
 		IJobSpec spec = new JobSpec("", "output.txt", ",", System.lineSeparator(),IJobSpec.InputType.CSV,IJobSpec.OutputType.FILE);
 		//Ideally I don't need to have a local copy of this, just testing because I don't understand GRPC.
-		CoordinatorImpl job = new CoordinatorImpl(new NextPrimeCompute());
+		CoordinatorImpl job = new CoordinatorImpl(new NextPrimeCompute(),);
 		ComputationResult c = job.compute(spec);
 		System.out.println(c.getStatus());
-		System.out.println(c.getOutputLocation());
+		System.out.println(c.getOutput());
 		return 0;
 	}
 

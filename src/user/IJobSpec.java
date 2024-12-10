@@ -2,6 +2,10 @@ package user;
 
 public interface IJobSpec {
 
+	String getInputPath();
+	
+	String getOutputPath();
+	
 	InputType getInputType();
 	
 	OutputType getOutputType();

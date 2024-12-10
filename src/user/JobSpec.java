@@ -31,5 +31,17 @@ public class JobSpec implements IJobSpec {
 		this.pairDelim = pair;
 		this.endDelim = end;
 	}
+
+	@Override
+	public String getInputPath() {
+		// TODO Auto-generated method stub
+		return inputFilePath;
+	}
+
+	@Override
+	public String getOutputPath() {
+		// TODO Auto-generated method stub
+		return outputFilePath;
+	}
 	
 }

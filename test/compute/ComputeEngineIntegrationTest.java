@@ -32,12 +32,12 @@ public class ComputeEngineIntegrationTest {
 		CoordinatorImpl engine = new CoordinatorImpl(compute,dataStore);
 
 		// Job Specification
-		IJobSpec j = new JobSpec(null,null,",",";",IJobSpec.InputType.CSV,IJobSpec.OutputType.FILE);
+		IJobSpec j = new JobSpec(null,null,",",";",IJobSpec.InputType.CSV,IJobSpec.OutputType.CLI);
 		// Compute
 		ComputationResult computationResult = engine.compute(j);
 
 		// Verification (two ways)
-		Assertions.assertEquals("1,2;10,11;25,29;", computationResult);
+		Assertions.assertEquals("1,2;10,11;25,29;", computationResult.getOutput());
 		Assertions.assertArrayEquals(new String[] { "1,2;", "10,11;", "25,29;" }, output.getOutput().toArray());
 
 	}
