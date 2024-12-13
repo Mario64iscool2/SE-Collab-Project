@@ -1,9 +1,8 @@
-package datatests;
+package data;
 
-import data.DataStorageSystem;
 import utils.Status;
 
-public class InMemoryDataStore implements DataStorageSystem {
+public class InMemoryDataStore implements IDataStorage {
 
 	/**
 	 * a test-only in-memory implementation of DataStorageSystem api
@@ -18,18 +17,17 @@ public class InMemoryDataStore implements DataStorageSystem {
 	InMemoryOutput memOutput;
 
 	@Override
-	public Iterable<Integer> read() {
+	public DataRequestResponse read(InputConfig in) {
 		if (memInput != null) {
-			return memInput.getInputs();
+			return new DataRequestResponse(Status.OK, memInput.getInputs().iterator());
 		} else {
 			return null;
 		}
 	}
 
 	@Override
-	public Status appendSingleResult(String result) {
-		memOutput.write(result);
-		return Status.OK;
+	public Status appendSingleResult(OutputConfig out, String result) {
+		return memOutput.write(result);
 	}
 
 }

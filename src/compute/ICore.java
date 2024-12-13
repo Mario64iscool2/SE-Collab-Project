@@ -6,7 +6,7 @@ package compute;
  * @version 0.1
  * @author mario64iscool2
  */
-public interface ICompute {
+public interface ICore {
 
 	/**
 	 * This will run the computation to be implemented

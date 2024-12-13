@@ -2,10 +2,7 @@ package data;
 
 import utils.Status;
 
-/**
- * Handles both input and output from the Engine.
- */
-public interface DataStorageSystem {
+public interface IDataStorage {
 
 	/**
 	 * Retrieves the list of input integers to be iterated on for computation
@@ -13,8 +10,8 @@ public interface DataStorageSystem {
 	 * @return An Iterable<Integer> (usually List-implementing) or null if the
 	 *         DataStorageSystem doesn't have an input.
 	 */
-	Iterable<Integer> read();
+	DataRequestResponse read(InputConfig in);
 
-	Status appendSingleResult(String result);
+	Status appendSingleResult(OutputConfig out, String result);
 
 }

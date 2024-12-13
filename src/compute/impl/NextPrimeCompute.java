@@ -1,16 +1,21 @@
 package compute.impl;
 
-import compute.ICompute;
+import compute.ICore;
 
 /**
  * Computes the first prime number greater than the input.
  * 
  * @author Cameron Jarvis
  */
-public class NextPrimeCompute implements ICompute {
+public class NextPrimeCompute implements ICore {
 
 	@Override
 	public long compute(int i) {
+		// Shortcut the fact that any negative integer is nonprime, and that 2 is the
+		// smallest prime number.
+		if (i < 1) {
+			return 2;
+		}
 		// If our starting value is prime, we need to start from the next integer, as
 		// we're looking for the next greatest prime.
 		long j = 1;
