@@ -32,7 +32,7 @@ public class CoordinatorTest {
 		InputSource mockIn = new CsvInput("42");
 		IDataStorage mockIDataStorage = Mockito.mock();
 		Mockito.when(mockIDataStorage.read(Mockito.any()))
-				.thenReturn(new DataRequestResponse(Status.OK, mockIn.getInputs()));
+				.thenReturn(new DataRequestResponse(Status.OK, mockIn.getInputs().iterator()));
 		Mockito.when(mockIDataStorage.appendSingleResult(Mockito.any(), Mockito.anyString())).thenReturn(Status.OK);
 		Mockito.when(mockICompute.compute(Mockito.anyInt())).thenReturn(11L);
 		ArrayList<Integer> testVal = new ArrayList<Integer>();

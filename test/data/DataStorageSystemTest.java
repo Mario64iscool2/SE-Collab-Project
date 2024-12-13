@@ -23,7 +23,7 @@ public class DataStorageSystemTest {
 		OutputConfig mockOutput = Mockito.mock(OutputConfig.class);
 		IDataStorage dataStore = new DataStorageSystemImpl();
 
-		Assertions.assertEquals(4, dataStore.read(mockIn).getValues().iterator().next());
+		Assertions.assertEquals(4, dataStore.read(mockIn).getValues().next());
 
 		Assertions.assertEquals(Status.OK, dataStore.appendSingleResult(mockOutput, "result"));
 	}

@@ -37,15 +37,15 @@ public class DataStorageSystemImpl implements IDataStorage {
 		}
 
 		try {
-			return new DataRequestResponse(Status.OK, InputConfig.visitInputConfig(in, new InputConfigVisitor<Iterable<Integer>>() {
+			return new DataRequestResponse(Status.OK, InputConfig.visitInputConfig(in, new InputConfigVisitor<Iterator<Integer>>() {
 
 				@Override
-				public Iterable<Integer> visitFile(FileInputConfig fileInputConfig) {
+				public Iterator<Integer> visitFile(FileInputConfig fileInputConfig) {
 					return getFileBasedIterator(fileInputConfig.getFileName());
 				}
 
 				@Override
-				public Iterable<Integer> visitCsv(CsvInputConfig csvInputConfig) {
+				public Iterator<Integer> visitCsv(CsvInputConfig csvInputConfig) {
 					return getCsvBasedIterator(csvInputConfig.getCsv());
 				}
 				

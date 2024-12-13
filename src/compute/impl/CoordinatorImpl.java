@@ -1,5 +1,7 @@
 package compute.impl;
 
+import java.util.Iterator;
+
 import compute.ComputationResult;
 import compute.Coordinator;
 import compute.ICore;
@@ -16,7 +18,7 @@ public class CoordinatorImpl extends Coordinator {
 
 	private IDataStorage dss;
 
-	Iterable<Integer> ints;
+	Iterator<Integer> ints;
 
 	/**
 	 * Instantiate a new CoordinatorImpl with the specified compute core, and
@@ -54,8 +56,8 @@ public class CoordinatorImpl extends Coordinator {
 		}
 		pair = j.getPairDelim();
 		end = j.getEndDelim();
-		for (int i : ints) {
-			String temp = formatOutput(i);
+		while (ints.hasNext()) {
+			String temp = formatOutput(ints.next());
 			if (j.getOutputType() == OutputType.CLI) {
 				cliString += temp;
 			} else {

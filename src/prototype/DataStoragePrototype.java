@@ -1,5 +1,7 @@
 package prototype;
 
+import java.util.Iterator;
+
 import data.FileInputConfig;
 import data.IDataStorage;
 import utils.Status;
@@ -9,10 +11,10 @@ import utils.Status;
 public class DataStoragePrototype {
 	CoordinatorProto proto;
 	public void prototype(IDataStorage dataStore) {		
-		Iterable<Integer> loadedData = dataStore.read(new FileInputConfig("")).getValues();
+		Iterator<Integer> loadedData = dataStore.read(new FileInputConfig("")).getValues();
 
-		for (int i : loadedData) {
-			String result = "" + i;
+		while (loadedData.hasNext()) {
+			String result = "" + loadedData.next();
 
 			Status status = dataStore.appendSingleResult(null,result);
 

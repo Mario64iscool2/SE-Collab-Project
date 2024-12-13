@@ -1,5 +1,7 @@
 package data;
 
+import java.util.Iterator;
+
 import utils.Status;
 
 /**
@@ -12,16 +14,16 @@ public class DataRequestResponse {
 	private Status status;
 	
 	/**
-	 * The unchanging iterable integers from our input source.
+	 * The iterator from our data.
 	 */
-	private final Iterable<Integer> values;
+	private final Iterator<Integer> values;
 	
 	/**
 	 * Creates a DataRequestResponse Object containing the successfulness of reading the data, and the data (if any)
 	 * @param s whether or not our data was successfully read
 	 * @param v the iterable integers our data consists of
 	 */
-	public DataRequestResponse(Status s, Iterable<Integer> v) {
+	public DataRequestResponse(Status s, Iterator<Integer> v) {
 		status = s;
 		values = v;
 	}
@@ -36,7 +38,7 @@ public class DataRequestResponse {
 	/**
 	 * @return the values
 	 */
-	public Iterable<Integer> getValues() {
+	public Iterator<Integer> getValues() {
 		return values;
 	}
 	

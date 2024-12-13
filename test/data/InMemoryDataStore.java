@@ -1,13 +1,5 @@
 package data;
 
-import data.DataRequestResponse;
-import data.IDataStorage;
-import data.InputConfig;
-import data.InputSource;
-import data.OutputConfig;
-import data.OutputSource;
-import data.impl.DirectInputSource;
-import data.impl.EchoOut;
 import utils.Status;
 
 public class InMemoryDataStore implements IDataStorage {
@@ -27,7 +19,7 @@ public class InMemoryDataStore implements IDataStorage {
 	@Override
 	public DataRequestResponse read(InputConfig in) {
 		if (memInput != null) {
-			return new DataRequestResponse(Status.OK, memInput.getInputs());
+			return new DataRequestResponse(Status.OK, memInput.getInputs().iterator());
 		} else {
 			return null;
 		}
