@@ -5,6 +5,7 @@ import java.util.Iterator;
 import compute.ComputationResult;
 import compute.Coordinator;
 import compute.ICore;
+import data.CsvInputConfig;
 import data.DataRequestResponse;
 import data.FileInputConfig;
 import data.FileOutputConfig;
@@ -41,15 +42,15 @@ public class CoordinatorImpl extends Coordinator {
 		if (j.getInputType() == InputType.FILE) {
 			resp = dss.read(new FileInputConfig(j.getInputPath()));
 			tempStatus = resp.getStatus();
-			if(tempStatus != Status.OK) {
+			if (tempStatus != Status.OK) {
 				return new ComputationResult(tempStatus, null, null);
 			}
 			ints = resp.getValues();
-			
+
 		} else if (j.getInputType() == InputType.CSV) {
-			resp = dss.read(new FileInputConfig(j.getInputPath()));
+			resp = dss.read(new CsvInputConfig(j.getInputPath()));
 			tempStatus = resp.getStatus();
-			if(tempStatus != Status.OK) {
+			if (tempStatus != Status.OK) {
 				return new ComputationResult(tempStatus, null, null);
 			}
 			ints = resp.getValues();

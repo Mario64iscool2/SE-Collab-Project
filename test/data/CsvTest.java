@@ -1,15 +1,8 @@
 package data;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
-import data.IDataStorage;
-import data.InputSource;
-import data.OutputSource;
 import data.impl.CsvInput;
-import data.impl.DataStorageSystemImpl;
-import utils.Status;
 
 public class CsvTest {
 

@@ -6,9 +6,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import data.IDataStorage;
-import data.InputConfig;
-import data.OutputConfig;
 import data.impl.DataStorageSystemImpl;
 import utils.Status;
 
