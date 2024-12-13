@@ -3,7 +3,9 @@ package compute.impl;
 import compute.ComputationResult;
 import compute.Coordinator;
 import compute.ICore;
+import data.DataRequestResponse;
 import data.FileInputConfig;
+import data.FileOutputConfig;
 import data.IDataStorage;
 import user.IJobSpec;
 import user.IJobSpec.InputType;
@@ -20,10 +22,10 @@ public class CoordinatorImpl extends Coordinator {
 	 * Instantiate a new CoordinatorImpl with the specified compute core, and
 	 * default delimiters of ',' and ';'
 	 * 
-	 * @param compute The computation core to use
+	 * @param mockICompute The computation core to use
 	 */
-	public CoordinatorImpl(ICore compute, IDataStorage dss) {
-		computation = compute;
+	public CoordinatorImpl(ICore mockICompute, IDataStorage dss) {
+		computation = mockICompute;
 		pair = ",";
 		end = ";";
 		this.dss = dss;
@@ -32,10 +34,23 @@ public class CoordinatorImpl extends Coordinator {
 	@Override
 	public ComputationResult compute(IJobSpec j) {
 		String cliString = "";
+		DataRequestResponse resp;
+		Status tempStatus;
 		if (j.getInputType() == InputType.FILE) {
-			ints = dss.read(new FileInputConfig(j.getInputPath())).getValues();
+			resp = dss.read(new FileInputConfig(j.getInputPath()));
+			tempStatus = resp.getStatus();
+			if(tempStatus != Status.OK) {
+				return new ComputationResult(tempStatus, null, null);
+			}
+			ints = resp.getValues();
+			
 		} else if (j.getInputType() == InputType.CSV) {
-			ints = dss.read(new FileInputConfig(j.getInputPath())).getValues();
+			resp = dss.read(new FileInputConfig(j.getInputPath()));
+			tempStatus = resp.getStatus();
+			if(tempStatus != Status.OK) {
+				return new ComputationResult(tempStatus, null, null);
+			}
+			ints = resp.getValues();
 		}
 		pair = j.getPairDelim();
 		end = j.getEndDelim();
@@ -44,7 +59,7 @@ public class CoordinatorImpl extends Coordinator {
 			if (j.getOutputType() == OutputType.CLI) {
 				cliString += temp;
 			} else {
-				if (!dss.appendSingleResult(null, temp).success()) {
+				if (!dss.appendSingleResult(new FileOutputConfig(j.getOutputPath()), temp).success()) {
 					return new ComputationResult(Status.BAD, null, null);
 				}
 			}

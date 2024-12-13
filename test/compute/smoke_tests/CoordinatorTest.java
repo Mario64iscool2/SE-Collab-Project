@@ -31,15 +31,16 @@ public class CoordinatorTest {
 		ICore mockICompute = Mockito.mock();
 		InputSource mockIn = new CsvInput("42");
 		IDataStorage mockIDataStorage = Mockito.mock();
-		Mockito.when(mockIDataStorage.read(Mockito.any())).thenReturn(new DataRequestResponse(Status.OK,mockIn.getInputs()));
+		Mockito.when(mockIDataStorage.read(Mockito.any()))
+				.thenReturn(new DataRequestResponse(Status.OK, mockIn.getInputs()));
 		Mockito.when(mockIDataStorage.appendSingleResult(Mockito.any(), Mockito.anyString())).thenReturn(Status.OK);
 		Mockito.when(mockICompute.compute(Mockito.anyInt())).thenReturn(11L);
 		ArrayList<Integer> testVal = new ArrayList<Integer>();
 		testVal.add(42);
-		IComputeCoordinator coord = new CoordinatorImpl(mockICompute,mockIDataStorage);
-		ComputationResult cr = coord.compute(new JobSpec("","",",",";",InputType.CSV,OutputType.CLI));
+		IComputeCoordinator coord = new CoordinatorImpl(mockICompute, mockIDataStorage);
+		ComputationResult cr = coord.compute(new JobSpec("", "", ",", ";", InputType.CSV, OutputType.CLI));
 		assertEquals(Status.OK, cr.getStatus());
-		
+
 	}
 
 }

@@ -1,13 +1,14 @@
 package user.impl;
 
+import java.util.Scanner;
+
 import compute.ComputationResult;
 import compute.impl.CoordinatorImpl;
 import compute.impl.NextPrimeCompute;
-import user.IJobSpec;
+import data.impl.DataStorageSystemImpl;
+import user.IJobSpec.InputType;
+import user.IJobSpec.OutputType;
 import user.JobSpec;
-
-import java.util.Arrays;
-import java.util.Scanner;
 
 public class Client {
 
@@ -17,7 +18,7 @@ public class Client {
 	String inPath = "";
 	String outPath = "";
 	
-	public static int main(String[] args) {
+	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Client client = new Client();
 		if(args.length > 0) {
@@ -55,21 +56,24 @@ public class Client {
 					         + "\r\n   If omitted, you will be prompted for input.)");
 			System.out.println("   -o [filepath] (Specifies the output location."
 			         + "\r\n   If omitted, results will print to this terminal.)");
-			return 0;
+			return;
 		}
+		String[] inputs;
 		if(client.cliIn) {
 		Scanner in = new Scanner(System.in);
 		System.out.println("Input the numbers you'd like to operate on as a list, separated by commas \",\" or spaces.");
-		String[] inputs = in.next().split("\\D");
-		Integer[] intInputs;
+		inputs = in.nextLine().split("-?[^0-9]+");
+			in.close();
+			for(String s : inputs)
+				System.out.println(s);
 		}
-		IJobSpec spec = new JobSpec("", "output.txt", ",", System.lineSeparator(),IJobSpec.InputType.CSV,IJobSpec.OutputType.FILE);
+		JobSpec spec = new JobSpec(!client.cliIn ? client.inPath : null, client.outPath, ",", System.lineSeparator(),client.cliIn ? InputType.CSV : InputType.FILE, client.cliOut ? OutputType.CLI : OutputType.FILE);
 		//Ideally I don't need to have a local copy of this, just testing because I don't understand GRPC.
-		CoordinatorImpl job = new CoordinatorImpl(new NextPrimeCompute(),);
-		ComputationResult c = job.compute(spec);
-		System.out.println(c.getStatus());
-		System.out.println(c.getOutput());
-		return 0;
+		CoordinatorImpl c = new CoordinatorImpl(new NextPrimeCompute(), new DataStorageSystemImpl());
+		System.out.println(spec.toString());
+		ComputationResult res = c.compute(spec);
+		System.out.println("Done! Output is located at: "+ res.getOutput());
+		return;
 	}
 
 }

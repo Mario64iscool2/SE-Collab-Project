@@ -2,14 +2,17 @@ package user;
 
 public class JobSpec implements IJobSpec {
 	String inputFilePath;
+	InputType inType;
+	OutputType outType;
+	
 	@Override
 	public InputType getInputType() {
-		return InputType.FILE;
+		return inType;
 	}
 
 	@Override
 	public OutputType getOutputType() {
-		return OutputType.FILE;
+		return outType;
 	}
 
 	@Override
@@ -30,6 +33,8 @@ public class JobSpec implements IJobSpec {
 		this.outputFilePath = out;
 		this.pairDelim = pair;
 		this.endDelim = end;
+		this.inType = iType;
+		this.outType = oType;
 	}
 
 	@Override
@@ -42,6 +47,11 @@ public class JobSpec implements IJobSpec {
 	public String getOutputPath() {
 		// TODO Auto-generated method stub
 		return outputFilePath;
+	}
+	
+	@Override
+	public String toString() {
+		return "{ Input: "+inputFilePath+", Output: "+outputFilePath+", Delimiters: [\""+pairDelim+"\", \""+endDelim.replaceAll("\r","\\\\r").replaceAll("\n", "\\\\n")+"\"], Input Type: "+inType.toString()+", Output Type: "+outType.toString()+" }";
 	}
 	
 }

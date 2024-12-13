@@ -34,11 +34,11 @@ public class DataStorageSystemImpl implements IDataStorage {
 		}
 
 		try {
-			return new DataRequestResponse(Status.OK, InputConfig.visitInputConfig(in, fileConfig -> {
+			return new DataRequestResponse(Status.OK, InputConfig.visitInputConfig(in, visitor -> {
 				return new Iterable<Integer>() {
 					@Override
 					public Iterator<Integer> iterator() {
-						return getFileBasedIterator(fileConfig.getFileName());
+						return getFileBasedIterator(visitor.getFileName());
 					}
 				};
 			}));
@@ -54,32 +54,32 @@ public class DataStorageSystemImpl implements IDataStorage {
 				BufferedReader buff = new BufferedReader(new FileReader(new File(fileName)));
 				String text = buff.readLine();
 				boolean closed = false;
-				
+
 				@Override
 				public boolean hasNext() {
 					// TODO Auto-generated method stub
 					return text != null;
 				}
-				
+
 				@Override
 				public Integer next() {
 					int result = Integer.parseInt(text);
 					try {
 						text = buff.readLine();
-						if(!hasNext()) {
+						if (!hasNext()) {
 							buff.close();
 							closed = true;
 						}
 					} catch (IOException e) {
 						throw new RuntimeException(e);
 					}
-					
+
 					return result;
 				}
-				
+
 				@Override
 				public void finalize() {
-					if(!closed) {
+					if (!closed) {
 						try {
 							buff.close();
 							closed = true;
@@ -88,10 +88,10 @@ public class DataStorageSystemImpl implements IDataStorage {
 						}
 					}
 				}
-				
+
 			};
 		} catch (Exception e) {
-			return null;
+			throw new RuntimeException(e);
 		}
 	}
 
