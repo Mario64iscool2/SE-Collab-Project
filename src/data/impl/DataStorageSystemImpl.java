@@ -10,6 +10,9 @@ import java.util.Iterator;
 import data.DataRequestResponse;
 import data.IDataStorage;
 import data.InputConfig;
+import data.InputConfig.InputConfigVisitor;
+import data.CsvInputConfig;
+import data.FileInputConfig;
 import data.OutputConfig;
 import utils.Status;
 
@@ -34,13 +37,18 @@ public class DataStorageSystemImpl implements IDataStorage {
 		}
 
 		try {
-			return new DataRequestResponse(Status.OK, InputConfig.visitInputConfig(in, visitor -> {
-				return new Iterable<Integer>() {
-					@Override
-					public Iterator<Integer> iterator() {
-						return getFileBasedIterator(visitor.getFileName());
-					}
-				};
+			return new DataRequestResponse(Status.OK, InputConfig.visitInputConfig(in, new InputConfigVisitor<Iterable<Integer>>() {
+
+				@Override
+				public Iterable<Integer> visitFile(FileInputConfig fileInputConfig) {
+					return getFileBasedIterator(fileInputConfig.getFileName());
+				}
+
+				@Override
+				public Iterable<Integer> visitCsv(CsvInputConfig csvInputConfig) {
+					return getCsvBasedIterator(csvInputConfig.getCsv());
+				}
+				
 			}));
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -57,7 +65,7 @@ public class DataStorageSystemImpl implements IDataStorage {
 
 				@Override
 				public boolean hasNext() {
-					// TODO Auto-generated method stub
+
 					return text != null;
 				}
 
@@ -95,6 +103,12 @@ public class DataStorageSystemImpl implements IDataStorage {
 		}
 	}
 
+	private Iterator<Integer> getCsvBasedIterator(String data) {
+		//TODO Stubbed.
+		return null;
+	}
+	
+	
 	private void writeToFile(String fileName, String text) {
 		try (FileWriter writer = new FileWriter(new File(fileName), true)) {
 			writer.append(text);
