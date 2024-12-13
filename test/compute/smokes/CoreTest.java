@@ -1,4 +1,4 @@
-package compute.smoke_tests;
+package compute.smokes;
 
 import org.junit.jupiter.api.Test;
 
@@ -11,7 +11,7 @@ public class CoreTest {
 	void testCore() {
 		NextPrimeCompute core = new NextPrimeCompute();
 		assertEquals(2, core.compute(1));
-		
+
 	}
-	
+
 }

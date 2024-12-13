@@ -1,4 +1,4 @@
-package compute.smoke_tests;
+package compute.smokes;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

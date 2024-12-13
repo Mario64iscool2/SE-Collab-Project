@@ -7,9 +7,9 @@ import org.junit.jupiter.api.Test;
 
 import compute.impl.CoordinatorImpl;
 import compute.impl.NextPrimeCompute;
-import datatests.InMemoryDataStore;
-import datatests.InMemoryInput;
-import datatests.InMemoryOutput;
+import data.InMemoryDataStore;
+import data.InMemoryInput;
+import data.InMemoryOutput;
 import user.IJobSpec;
 import user.JobSpec;
 
@@ -29,10 +29,10 @@ public class ComputeEngineIntegrationTest {
 		InMemoryDataStore dataStore = new InMemoryDataStore(input, output);
 		// Instantiate our Compute Core + Engine Pairing
 		NextPrimeCompute compute = new NextPrimeCompute();
-		CoordinatorImpl engine = new CoordinatorImpl(compute,dataStore);
+		CoordinatorImpl engine = new CoordinatorImpl(compute, dataStore);
 
 		// Job Specification
-		IJobSpec j = new JobSpec(null,null,",",";",IJobSpec.InputType.CSV,IJobSpec.OutputType.CLI);
+		IJobSpec j = new JobSpec(null, null, ",", ";", IJobSpec.InputType.CSV, IJobSpec.OutputType.CLI);
 		// Compute
 		ComputationResult computationResult = engine.compute(j);
 

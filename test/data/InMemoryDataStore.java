@@ -1,4 +1,4 @@
-package datatests;
+package data;
 
 import data.DataRequestResponse;
 import data.IDataStorage;
@@ -27,7 +27,7 @@ public class InMemoryDataStore implements IDataStorage {
 	@Override
 	public DataRequestResponse read(InputConfig in) {
 		if (memInput != null) {
-			return new DataRequestResponse(Status.OK,memInput.getInputs());
+			return new DataRequestResponse(Status.OK, memInput.getInputs());
 		} else {
 			return null;
 		}

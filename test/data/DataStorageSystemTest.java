@@ -1,4 +1,4 @@
-package datatests;
+package data;
 
 import java.util.ArrayList;
 
@@ -25,6 +25,6 @@ public class DataStorageSystemTest {
 
 		Assertions.assertEquals(4, dataStore.read(mockIn).getValues().iterator().next());
 
-		Assertions.assertEquals(Status.OK, dataStore.appendSingleResult(mockOutput,"result"));
+		Assertions.assertEquals(Status.OK, dataStore.appendSingleResult(mockOutput, "result"));
 	}
 }
