@@ -13,9 +13,10 @@ public class CoordinatorProto {
 	public ComputationResult compute(ICore computation) {
 		CoordinatorProto proto = new CoordinatorProto();
 		for(int i : inputs) {
+			@SuppressWarnings("unused")
 			long temp = computation.compute(i);
-			// temp.toString();
-			// append to out.
+//			 temp.toString();
+//			 append to out.
 		}
 		return new ComputationResult(Status.OK,proto.spec.getOutputPath(),OutputType.FILE);
 	}

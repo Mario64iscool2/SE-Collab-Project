@@ -3,7 +3,6 @@ package data;
 import java.util.ArrayList;
 import java.util.List;
 
-import data.OutputSource;
 import utils.Status;
 
 public class InMemoryOutput implements OutputSource {

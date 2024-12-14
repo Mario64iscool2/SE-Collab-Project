@@ -7,6 +7,7 @@ import compute.Coordinator;
 import compute.ICore;
 import data.CsvInputConfig;
 import data.DataRequestResponse;
+import data.EchoOutputConfig;
 import data.FileInputConfig;
 import data.FileOutputConfig;
 import data.IDataStorage;
@@ -36,7 +37,7 @@ public class CoordinatorImpl extends Coordinator {
 
 	@Override
 	public ComputationResult compute(IJobSpec j) {
-		String cliString = "";
+		EchoOutputConfig echo = new EchoOutputConfig();
 		DataRequestResponse resp;
 		Status tempStatus;
 		if (j.getInputType() == InputType.FILE) {
@@ -60,14 +61,17 @@ public class CoordinatorImpl extends Coordinator {
 		while (ints.hasNext()) {
 			String temp = formatOutput(ints.next());
 			if (j.getOutputType() == OutputType.CLI) {
-				cliString += temp;
-			} else {
+				if (!dss.appendSingleResult(echo, temp).success()) {
+					return new ComputationResult(Status.BAD, null, null);
+				}
+			} else if (j.getOutputType() == OutputType.FILE) {
 				if (!dss.appendSingleResult(new FileOutputConfig(j.getOutputPath()), temp).success()) {
 					return new ComputationResult(Status.BAD, null, null);
 				}
 			}
 		}
-		return new ComputationResult(Status.OK, j.getOutputPath(), j.getOutputType());
+		return new ComputationResult(Status.OK,
+				(j.getOutputType() == OutputType.FILE) ? j.getOutputPath() : echo.getOutput(), j.getOutputType());
 	}
 
 	private String formatOutput(int i) {

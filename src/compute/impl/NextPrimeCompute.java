@@ -34,6 +34,7 @@ public class NextPrimeCompute implements ICore {
 	 * @return the next greatest number that is prime
 	 * @deprecated (Stack Overflow is bad.)
 	 */
+	@Deprecated
 	public long recursiveCompute(int i) {
 		return isPrimeImproved(i) ? i : recursiveCompute(i + 1);
 	}
@@ -46,6 +47,7 @@ public class NextPrimeCompute implements ICore {
 	 * @deprecated use {@link NextPrimeCompute#isPrimeImproved(int)}
 	 * @return the boolean truth of whether x is prime or not.
 	 */
+	@Deprecated
 	boolean isPrime(int x) {
 		if (x <= 1) {
 			return false;
