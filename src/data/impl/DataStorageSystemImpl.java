@@ -6,20 +6,17 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.StringReader;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Scanner;
 
+import data.CsvInputConfig;
 import data.DataRequestResponse;
 import data.EchoOutputConfig;
+import data.FileInputConfig;
+import data.FileOutputConfig;
 import data.IDataStorage;
 import data.InputConfig;
 import data.InputConfig.InputConfigVisitor;
-import data.CsvInputConfig;
-import data.FileInputConfig;
-import data.FileOutputConfig;
 import data.OutputConfig;
 import data.OutputConfig.OutputConfigVisitor;
 import utils.Status;
@@ -32,14 +29,14 @@ public class DataStorageSystemImpl implements IDataStorage {
 			OutputConfig.visitOutputConfig(out, new OutputConfigVisitor() {
 				@Override
 				public void visitFile(FileOutputConfig fileOutputConfig) {
-					writeToFile(fileOutputConfig.getFileName(), result);	
+					writeToFile(fileOutputConfig.getFileName(), result);
 				}
-				
+
 				@Override
 				public void visitEchoOut(EchoOutputConfig eOutConf) {
 					eOutConf.append(result);
 				}
-				
+
 			});
 			return Status.OK;
 		} catch (Exception e) {
@@ -81,6 +78,7 @@ public class DataStorageSystemImpl implements IDataStorage {
 				BufferedReader buff = new BufferedReader(new FileReader(new File(fileName)));
 				String text = buff.readLine();
 				Scanner in = new Scanner(text);
+				@SuppressWarnings("unused")
 				boolean closed = false;
 
 				@Override
@@ -92,8 +90,8 @@ public class DataStorageSystemImpl implements IDataStorage {
 				public Integer next() {
 					int result = in.nextInt();
 					try {
-						if(!hasNext()) {
-							text = buff.readLine();							
+						if (!hasNext()) {
+							text = buff.readLine();
 						}
 						if (!hasNext()) {
 							buff.close();
@@ -105,18 +103,6 @@ public class DataStorageSystemImpl implements IDataStorage {
 					return result;
 				}
 
-				@Override
-				public void finalize() {
-					if (!closed) {
-						try {
-							buff.close();
-							closed = true;
-						} catch (IOException e) {
-							throw new RuntimeException(e);
-						}
-					}
-				}
-
 			};
 		} catch (Exception e) {
 			throw new RuntimeException(e);
@@ -126,11 +112,12 @@ public class DataStorageSystemImpl implements IDataStorage {
 	private Iterator<Integer> getCsvBasedIterator(String data) {
 		try {
 			return new Iterator<Integer>() {
+				@SuppressWarnings("unused")
 				boolean closed = false;
 				String text = sanitizeInputData(data);
 				BufferedReader buff = new BufferedReader(new StringReader(text));
 				String line = buff.readLine();
-				
+
 				@Override
 				public boolean hasNext() {
 					return line != null;
@@ -167,7 +154,7 @@ public class DataStorageSystemImpl implements IDataStorage {
 		String result = "";
 		for (int i = 0; i < temp.length; i++) {
 			try {
-				result += Integer.parseInt(temp[i])+System.lineSeparator();
+				result += Integer.parseInt(temp[i]) + System.lineSeparator();
 			} catch (NumberFormatException e) {
 				System.out.println("Bad input: " + e.getLocalizedMessage());
 			} finally {
