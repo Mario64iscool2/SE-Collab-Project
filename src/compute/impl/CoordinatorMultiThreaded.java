@@ -3,6 +3,11 @@ package compute.impl;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 import compute.ComputationResult;
 import compute.Coordinator;
@@ -16,7 +21,6 @@ import user.IJobSpec;
 import user.IJobSpec.InputType;
 import user.IJobSpec.OutputType;
 import utils.Status;
-import java.util.concurrent.*;
 
 public class CoordinatorMultiThreaded extends Coordinator {
 
@@ -101,7 +105,7 @@ public class CoordinatorMultiThreaded extends Coordinator {
 			});
 		}
 		for (String result : results) {
-			if(!dss.appendSingleResult(new FileOutputConfig(j.getOutputPath()), result).success()) {
+			if (!dss.appendSingleResult(new FileOutputConfig(j.getOutputPath()), result).success()) {
 				throw new RuntimeException("Write Failed!");
 			}
 		}
