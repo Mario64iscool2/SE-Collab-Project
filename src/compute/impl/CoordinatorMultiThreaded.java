@@ -105,12 +105,12 @@ public class CoordinatorMultiThreaded extends Coordinator {
 		});
 		if (j.getOutputType() == OutputType.CLI) {
 			// NoSuchElementException because the futures haven't actually been done.
-			if (!dss.appendSingleResult(echo, results.removeFirst()).success()) {
+			if (!dss.appendSingleResult(echo, results.remove(0)).success()) {
 				return new ComputationResult(Status.BAD, echo.getOutput(), OutputType.CLI);
 			}
 		} else if (j.getOutputType() == OutputType.FILE) {
 			// NoSuchElementException because the futures haven't actually been done.
-			if (!dss.appendSingleResult(new FileOutputConfig(j.getOutputPath()), results.removeFirst()).success()) {
+			if (!dss.appendSingleResult(new FileOutputConfig(j.getOutputPath()), results.remove(0)).success()) {
 				return new ComputationResult(Status.BAD, j.getOutputPath(), OutputType.FILE);
 			}
 		}
