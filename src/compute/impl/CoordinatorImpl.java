@@ -70,7 +70,8 @@ public class CoordinatorImpl extends Coordinator {
 				}
 			}
 		}
-		return new ComputationResult(Status.OK, (j.getOutputType() == OutputType.FILE)? j.getOutputPath() : echo.getOutput(), j.getOutputType());
+		return new ComputationResult(Status.OK,
+				(j.getOutputType() == OutputType.FILE) ? j.getOutputPath() : echo.getOutput(), j.getOutputType());
 	}
 
 	private String formatOutput(int i) {

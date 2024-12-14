@@ -52,7 +52,6 @@ public class DataStorageSystemImpl implements IDataStorage {
 		if (in == null) {
 			return null;
 		}
-
 		try {
 			return new DataRequestResponse(Status.OK,
 					InputConfig.visitInputConfig(in, new InputConfigVisitor<Iterator<Integer>>() {

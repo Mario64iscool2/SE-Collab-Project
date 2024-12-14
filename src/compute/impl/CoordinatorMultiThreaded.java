@@ -14,6 +14,7 @@ import compute.Coordinator;
 import compute.ICore;
 import data.CsvInputConfig;
 import data.DataRequestResponse;
+import data.EchoOutputConfig;
 import data.FileInputConfig;
 import data.FileOutputConfig;
 import data.IDataStorage;
@@ -51,9 +52,9 @@ public class CoordinatorMultiThreaded extends Coordinator {
 	 * @param next   the countdown latch of the next thread in line, if it exists
 	 * @return
 	 */
-	private Callable<Long> computeTask(int num, List<String> result, CountDownLatch prev, CountDownLatch next) {
+	private Callable<Void> computeTask(int num, List<String> result, CountDownLatch prev, CountDownLatch next) {
 		return () -> {
-			String s = formatOutput(num);
+			String s = num + pair + computation.compute(num) + end;
 			next.await();
 			result.add(s);
 			prev.countDown();
@@ -68,7 +69,7 @@ public class CoordinatorMultiThreaded extends Coordinator {
 		List<Future<?>> exceptionChecker = new ArrayList<>();
 		CountDownLatch prev = new CountDownLatch(1);
 		CountDownLatch next = new CountDownLatch(1);
-		String cliString = "";
+		EchoOutputConfig echo = new EchoOutputConfig();
 		DataRequestResponse resp;
 		Status tempStatus;
 		if (j.getInputType() == InputType.FILE) {
@@ -90,30 +91,32 @@ public class CoordinatorMultiThreaded extends Coordinator {
 		pair = j.getPairDelim();
 		end = j.getEndDelim();
 		while (ints.hasNext()) {
-			for (int i = 0; i < 8; i++) {
-				exceptionChecker.add(threadPool.submit(computeTask(ints.next(), results, prev, next)));
-				prev = next;
-				next = new CountDownLatch(1);
-			}
+			exceptionChecker.add(threadPool.submit(computeTask(ints.next(), results, prev, next)));
+			prev = next;
+			next = new CountDownLatch(1);
 			prev.countDown();
-			exceptionChecker.forEach(future -> {
-				try {
-					future.get();
-				} catch (Exception e) {
-					throw new RuntimeException(e);
-				}
-			});
 		}
-		for (String result : results) {
-			if (!dss.appendSingleResult(new FileOutputConfig(j.getOutputPath()), result).success()) {
-				throw new RuntimeException("Write Failed!");
+		exceptionChecker.forEach(future -> {
+			try {
+				future.get();
+			} catch (Exception e) {
+				throw new RuntimeException(e);
+			}
+		});
+		if (j.getOutputType() == OutputType.CLI) {
+			// NoSuchElementException because the futures haven't actually been done.
+			if (!dss.appendSingleResult(echo, results.removeFirst()).success()) {
+				return new ComputationResult(Status.BAD, echo.getOutput(), OutputType.CLI);
+			}
+		} else if (j.getOutputType() == OutputType.FILE) {
+			// NoSuchElementException because the futures haven't actually been done.
+			if (!dss.appendSingleResult(new FileOutputConfig(j.getOutputPath()), results.removeFirst()).success()) {
+				return new ComputationResult(Status.BAD, j.getOutputPath(), OutputType.FILE);
 			}
 		}
-		return new ComputationResult(Status.OK, j.getOutputPath(), j.getOutputType());
-	}
+		return new ComputationResult(Status.OK,
+				(j.getOutputType() == OutputType.FILE) ? j.getOutputPath() : echo.getOutput(), j.getOutputType());
 
-	private String formatOutput(int i) {
-		return "" + i + pair + computation.compute(i) + end;
 	}
 
 }
