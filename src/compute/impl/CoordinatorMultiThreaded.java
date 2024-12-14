@@ -64,7 +64,7 @@ public class CoordinatorMultiThreaded extends Coordinator {
 
 	@Override
 	public ComputationResult compute(IJobSpec j) {
-		List<String> results = new ArrayList<>();
+		ArrayList<String> results = new ArrayList<>();
 		ExecutorService threadPool = Executors.newCachedThreadPool();
 		List<Future<?>> exceptionChecker = new ArrayList<>();
 		CountDownLatch prev = new CountDownLatch(1);

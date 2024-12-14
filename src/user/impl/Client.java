@@ -81,6 +81,10 @@ public class Client {
 		case CLI:
 			System.out.println("Done!"+System.lineSeparator()+"Output:"+System.lineSeparator()+res.getOutput());
 			break;
+		default:
+			System.out.println("Done! Somehow we have an unexpected output type. The result of the output is"+res.getOutput());
+			System.out.println("The output type is specified as: "+res.getType().toString());
+			break;
 		}
 		return;
 	}
