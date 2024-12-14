@@ -5,7 +5,12 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.StringReader;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Scanner;
 
 import data.DataRequestResponse;
 import data.IDataStorage;
@@ -37,19 +42,22 @@ public class DataStorageSystemImpl implements IDataStorage {
 		}
 
 		try {
-			return new DataRequestResponse(Status.OK, InputConfig.visitInputConfig(in, new InputConfigVisitor<Iterator<Integer>>() {
+			return new DataRequestResponse(Status.OK,
+					InputConfig.visitInputConfig(in, new InputConfigVisitor<Iterator<Integer>>() {
 
-				@Override
-				public Iterator<Integer> visitFile(FileInputConfig fileInputConfig) {
-					return getFileBasedIterator(fileInputConfig.getFileName());
-				}
+						@Override
+						public Iterator<Integer> visitFile(FileInputConfig fileInputConfig) {
+							return getFileBasedIterator(fileInputConfig.getFileName());
+						}
 
-				@Override
-				public Iterator<Integer> visitCsv(CsvInputConfig csvInputConfig) {
-					return getCsvBasedIterator(csvInputConfig.getCsv());
-				}
-				
-			}));
+						@Override
+						public Iterator<Integer> visitCsv(CsvInputConfig csvInputConfig) {
+							return getCsvBasedIterator(csvInputConfig.getCsv());
+						}
+
+					}));
+		} catch (NumberFormatException nfe) {
+			return new DataRequestResponse(Status.BAD_INPUT, null);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new DataRequestResponse(Status.BAD, null);
@@ -61,19 +69,21 @@ public class DataStorageSystemImpl implements IDataStorage {
 			return new Iterator<Integer>() {
 				BufferedReader buff = new BufferedReader(new FileReader(new File(fileName)));
 				String text = buff.readLine();
+				Scanner in = new Scanner(text);
 				boolean closed = false;
 
 				@Override
 				public boolean hasNext() {
-
-					return text != null;
+					return in.hasNextInt();
 				}
 
 				@Override
 				public Integer next() {
-					int result = Integer.parseInt(text);
+					int result = in.nextInt();
 					try {
-						text = buff.readLine();
+						if(!hasNext()) {
+							text = buff.readLine();							
+						}
 						if (!hasNext()) {
 							buff.close();
 							closed = true;
@@ -81,7 +91,6 @@ public class DataStorageSystemImpl implements IDataStorage {
 					} catch (IOException e) {
 						throw new RuntimeException(e);
 					}
-
 					return result;
 				}
 
@@ -104,11 +113,59 @@ public class DataStorageSystemImpl implements IDataStorage {
 	}
 
 	private Iterator<Integer> getCsvBasedIterator(String data) {
-		//TODO Stubbed.
-		return null;
+		try {
+			return new Iterator<Integer>() {
+				boolean closed = false;
+				String text = sanitizeInputData(data);
+				BufferedReader buff = new BufferedReader(new StringReader(text));
+				String line = buff.readLine();
+				
+				@Override
+				public boolean hasNext() {
+					return line != null;
+				}
+
+				@Override
+				public Integer next() {
+					int result = Integer.parseInt(line);
+					try {
+						line = buff.readLine();
+						if (!hasNext()) {
+							buff.close();
+							closed = true;
+						}
+					} catch (IOException e) {
+						throw new RuntimeException(e);
+					}
+					return result;
+				}
+			};
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
 	}
-	
-	
+
+	/**
+	 * Sanitizes a supposedly CSV set of numbers into line-separated numbers,
+	 * removing commas and whitespace.
+	 * 
+	 * @param data the string containing the numbers.
+	 */
+	private String sanitizeInputData(String data) {
+		String[] temp = data.split("[ ,]+");
+		String result = "";
+		for (int i = 0; i < temp.length; i++) {
+			try {
+				result += Integer.parseInt(temp[i])+System.lineSeparator();
+			} catch (NumberFormatException e) {
+				System.out.println("Bad input: " + e.getLocalizedMessage());
+			} finally {
+				// Do nothing for now.
+			}
+		}
+		return result;
+	}
+
 	private void writeToFile(String fileName, String text) {
 		try (FileWriter writer = new FileWriter(new File(fileName), true)) {
 			writer.append(text);

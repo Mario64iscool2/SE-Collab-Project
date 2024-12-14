@@ -14,7 +14,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import compute.IComputeCoordinator;
-import compute.impl.CoordinatorImpl;
+import compute.impl.CoordinatorMultiThreaded;
 import compute.impl.NextPrimeCompute;
 import data.impl.DataStorageSystemImpl;
 
@@ -29,7 +29,7 @@ public class TestMultiUser {
 		//TODO 2: create an instance of your coordinator component; this is the component
 		// that the user will make requests to
 		// Store it in the 'coordinator' instance variable
-		coordinator = new CoordinatorImpl(new NextPrimeCompute(),new DataStorageSystemImpl());
+		coordinator = new CoordinatorMultiThreaded(new NextPrimeCompute(),new DataStorageSystemImpl());
 	}
 
 	@Test
