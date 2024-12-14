@@ -13,12 +13,15 @@ import java.util.List;
 import java.util.Scanner;
 
 import data.DataRequestResponse;
+import data.EchoOutputConfig;
 import data.IDataStorage;
 import data.InputConfig;
 import data.InputConfig.InputConfigVisitor;
 import data.CsvInputConfig;
 import data.FileInputConfig;
+import data.FileOutputConfig;
 import data.OutputConfig;
+import data.OutputConfig.OutputConfigVisitor;
 import utils.Status;
 
 public class DataStorageSystemImpl implements IDataStorage {
@@ -26,8 +29,17 @@ public class DataStorageSystemImpl implements IDataStorage {
 	@Override
 	public Status appendSingleResult(OutputConfig out, String result) {
 		try {
-			OutputConfig.visitOutputConfig(out, config -> {
-				writeToFile(config.getFileName(), result);
+			OutputConfig.visitOutputConfig(out, new OutputConfigVisitor() {
+				@Override
+				public void visitFile(FileOutputConfig fileOutputConfig) {
+					writeToFile(fileOutputConfig.getFileName(), result);	
+				}
+				
+				@Override
+				public void visitEchoOut(EchoOutputConfig eOutConf) {
+					eOutConf.append(result);
+				}
+				
 			});
 			return Status.OK;
 		} catch (Exception e) {
